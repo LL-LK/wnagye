@@ -49,14 +49,24 @@
 
         <!-- 主分类内容区域 -->
         <div class="main-content">
-          <div v-if="selectedMainCategory !== -1" class="sub-category-grid">
+          <div v-if="selectedMainCategory !== -1" class="sub-category-grid" :class="{ 'fade-in': !transitioning }">
             <div
               v-for="(subCategory, index) in mainCategories[selectedMainCategory].subCategories"
-              :key="index"
+              :key="`${selectedMainCategory}-${index}`"
               class="sub-category-item"
               @click="selectProduct(subCategory)"
             >
-              <img :src="subCategory.image" class="sub-category-image" loading="lazy" :alt="subCategory.name" />
+              <div class="image-wrapper">
+                <div class="image-placeholder" :class="{ hidden: isImageLoaded(subCategory.image) }"></div>
+                <img
+                  :src="subCategory.image"
+                  class="sub-category-image"
+                  :class="{ loaded: isImageLoaded(subCategory.image) }"
+                  loading="lazy"
+                  :alt="subCategory.name"
+                  @load="onImageLoaded(subCategory.image)"
+                />
+              </div>
               <h3 class="sub-category-name">{{ subCategory.name }}</h3>
               <p class="sub-category-description">{{ subCategory.description }}</p>
             </div>
@@ -134,12 +144,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, shallowRef, onMounted, nextTick, watch } from 'vue'
 
-// 状态管理
 const selectedMainCategory = ref(-1)
-const selectedProduct = ref<any>(null)
+const selectedProduct = shallowRef<any>(null)
 const isZooming = ref(false)
+const loadedImages = ref<Set<string>>(new Set())
+const transitioning = ref(false)
+
+const onImageLoaded = (src: string) => {
+  loadedImages.value.add(src)
+}
+
+const isImageLoaded = (src: string) => {
+  return loadedImages.value.has(src)
+}
 
 // 7个主分类，每个分类下包含5个策略子分类
 const mainCategories = [
@@ -578,10 +597,39 @@ const themes = [
   }
 ]
 
-// 选择主分类
 const selectMainCategory = (index: number) => {
+  if (selectedMainCategory.value === index) return
+  transitioning.value = true
   selectedMainCategory.value = index
+  prefetchCategoryImages(index)
+  nextTick(() => {
+    setTimeout(() => { transitioning.value = false }, 50)
+  })
 }
+
+const prefetchCategoryImages = (index: number) => {
+  const cat = mainCategories[index]
+  if (!cat) return
+  cat.subCategories.forEach((sub: any) => {
+    const link = document.createElement('link')
+    link.rel = 'prefetch'
+    link.as = 'image'
+    link.href = sub.image
+    document.head.appendChild(link)
+  })
+}
+
+onMounted(() => {
+  if (selectedMainCategory.value === -1) {
+    mainCategories[0].subCategories.forEach((sub: any) => {
+      const link = document.createElement('link')
+      link.rel = 'prefetch'
+      link.as = 'image'
+      link.href = sub.image
+      document.head.appendChild(link)
+    })
+  }
+})
 
 // 选择产品查看详情
 const selectProduct = (product: any) => {
@@ -885,6 +933,55 @@ const closeZoom = () => {
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
   justify-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sub-category-grid.fade-in {
+  opacity: 1;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: #f0ebe0;
+  overflow: hidden;
+}
+
+.image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #e8e0d0 25%, #f0ebe0 50%, #e8e0d0 75%);
+  background-size: 200% 200%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+
+.image-placeholder.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.sub-category-image {
+  width: 100%;
+  height: 240px;
+  object-fit: contain;
+  background: #fff;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.sub-category-image.loaded {
+  opacity: 1;
 }
 
 .sub-category-item {
@@ -903,13 +1000,6 @@ const closeZoom = () => {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   border-color: #D4AF37;
-}
-
-.sub-category-image {
-  width: 100%;
-  height: 240px;
-  object-fit: contain;
-  background: #fff;
 }
 
 .sub-category-name {
