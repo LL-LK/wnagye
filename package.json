@@ -1,0 +1,20 @@
+{
+  "name": "guilin-1944-destiny-response",
+  "version": "1.0.0",
+  "description": "桂林1944·命运应答文创产品数字化展示H5网页",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.8",
+    "vue-tsc": "^2.0.7"
+  }
+}
