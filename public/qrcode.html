@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>桂林1944·命运应答 - 二维码</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #F5F0E6 0%, #fff 50%, #F5F0E6 100%);
+      font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+    }
+    .qr-container {
+      text-align: center;
+      background: #fff;
+      padding: 50px 60px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(139, 69, 19, 0.15);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+    }
+    .qr-title {
+      font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+      font-size: 1.8rem;
+      color: #8B4513;
+      margin-bottom: 8px;
+    }
+    .qr-subtitle {
+      font-size: 1rem;
+      color: #D4AF37;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+    .qr-wrapper {
+      display: inline-block;
+      padding: 20px;
+      background: #fff;
+      border: 3px solid #D4AF37;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+    #qrcode {
+      display: inline-block;
+    }
+    #qrcode img,
+    #qrcode canvas,
+    #qrcode table {
+      display: block !important;
+    }
+    .qr-url {
+      font-size: 1.1rem;
+      color: #000080;
+      margin-bottom: 15px;
+      word-break: break-all;
+    }
+    .qr-hint {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 10px;
+    }
+    .qr-decoration {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+      margin: 20px auto;
+    }
+    .qr-loading {
+      width: 280px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="qr-container">
+    <h1 class="qr-title">桂林1944·命运应答</h1>
+    <p class="qr-subtitle">文创产品数字化展示</p>
+    <div class="qr-decoration"></div>
+    <div class="qr-wrapper">
+      <div id="qrcode">
+        <div class="qr-loading" id="qrLoading">二维码生成中...</div>
+      </div>
+    </div>
+    <div class="qr-decoration"></div>
+    <p class="qr-url">https://wnagye.pages.dev</p>
+    <p class="qr-hint">扫描二维码访问</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+  <script>
+    (function() {
+      try {
+        var qr = qrcode(0, 'M');
+        qr.addData('https://wnagye.pages.dev');
+        qr.make();
+
+        var moduleCount = qr.getModuleCount();
+        var cellSize = Math.max(1, Math.floor(280 / moduleCount));
+        var totalSize = moduleCount * cellSize;
+
+        var canvas = document.createElement('canvas');
+        canvas.width = totalSize;
+        canvas.height = totalSize;
+        var ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, totalSize, totalSize);
+
+        ctx.fillStyle = '#8B4513';
+        for (var row = 0; row < moduleCount; row++) {
+          for (var col = 0; col < moduleCount; col++) {
+            if (qr.isDark(row, col)) {
+              ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+            }
+          }
+        }
+
+        var container = document.getElementById('qrcode');
+        var loading = document.getElementById('qrLoading');
+        if (loading) loading.style.display = 'none';
+        container.appendChild(canvas);
+      } catch (e) {
+        console.error('QR generation error:', e);
+        var loading = document.getElementById('qrLoading');
+        if (loading) loading.textContent = '二维码生成失败';
+      }
+    })();
+  </script>
+</body>
+</html>

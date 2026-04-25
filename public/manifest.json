@@ -1,0 +1,17 @@
+{
+  "name": "桂林1944·命运应答",
+  "short_name": "桂林1944",
+  "description": "以桂林抗战文化记忆为灵感的系列文创产品数字化展示",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F0E6",
+  "theme_color": "#8B4513",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/static/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

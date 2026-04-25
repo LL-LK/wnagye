@@ -2,7 +2,7 @@
   <div class="container">
     <!-- 首页头图Banner区域 -->
     <div class="banner">
-      <img class="banner-bg" src="/image/1.png" alt="桂林1944背景" />
+      <img class="banner-bg" src="/image/1.webp" alt="桂林1944背景" fetchpriority="high" />
       <div class="banner-content">
         <h1 class="banner-title">桂林1944·命运应答</h1>
         <h2 class="banner-subtitle">文创产品数字化展示</h2>
@@ -42,7 +42,7 @@
             :class="{ active: selectedMainCategory === index }"
             @click="selectMainCategory(index)"
           >
-            <img :src="mainCategory.image" class="sidebar-image" loading="lazy" :alt="mainCategory.name" />
+            <img :src="mainCategory.thumbImage" class="sidebar-image" loading="lazy" :alt="mainCategory.name" />
             <span class="sidebar-name">{{ mainCategory.name }}</span>
           </div>
         </div>
@@ -63,7 +63,7 @@
           </div>
           <div v-else class="welcome-content">
             <p class="welcome-text">请从左侧选择产品类型</p>
-            <img src="/image/1.png" class="welcome-image" alt="欢迎图片" />
+            <img src="/image/1.webp" class="welcome-image" alt="欢迎图片" />
           </div>
         </div>
       </div>
@@ -145,11 +145,12 @@ const isZooming = ref(false)
 const mainCategories = [
   {
     name: '书签',
-    image: '/image/书签分类总览图/{C81A4200-5390-4268-B73B-7B284BFAB786}.png',
+    image: '/image/书签分类总览图/{C81A4200-5390-4268-B73B-7B284BFAB786}.webp',
+    thumbImage: '/image-thumb/书签分类总览图/{C81A4200-5390-4268-B73B-7B284BFAB786}.webp',
     subCategories: [
       {
         name: '呐喊者·书签',
-        image: '/image/书签/呐喊者/384dc70a88e0fcef346945a42c544bbc.png',
+        image: '/image/书签/呐喊者/384dc70a88e0fcef346945a42c544bbc.webp',
         description: '在信息封锁中撕开缺口，信息穿透',
         meaning: '以独秀峰声波刺破云层为核心图形，靛蓝色调展现信息穿透的力量。',
         history: '《救亡日报》在轰炸中坚持手摇印刷、出版发声，书签设计旨在传递这份不屈的声音。',
@@ -159,7 +160,7 @@ const mainCategories = [
       },
       {
         name: '燃灯者·书签',
-        image: '/image/书签/燃灯者/4.png',
+        image: '/image/书签/燃灯者/6.webp',
         description: '在混乱/溃散中维持仪式，维持',
         meaning: '以象鼻山时钟与幕布交织为核心图形，赭红色调展现仪式维持的力量。',
         history: '西南剧展在时局紧张情况下坚持举办，书签设计旨在传承这份坚守精神。',
@@ -169,7 +170,7 @@ const mainCategories = [
       },
       {
         name: '织网者·书签',
-        image: '/image/书签/织网者/3.png',
+        image: '/image/书签/织网者/3.webp',
         description: '在割裂/猜忌中编织关系，关系编织',
         meaning: '以两江四湖节点连线成网为核心图形，青绿色调展现关系编织的力量。',
         history: '织网者象征凝聚千余名文化力量的精神，书签设计旨在传承这份团结精神。',
@@ -179,7 +180,7 @@ const mainCategories = [
       },
       {
         name: '摆渡者·书签',
-        image: '/image/书签/摆渡者/a9defb307e160f832444fb8b9fc48221.png',
+        image: '/image/书签/摆渡者/a9defb307e160f832444fb8b9fc48221.webp',
         description: '在道路受阻时另寻新途，路径重构',
         meaning: '以漓江断桥上报纸折成纸船为核心图形，明黄色调展现路径重构的力量。',
         history: '摆渡者象征在绝境中另寻新途的精神，书签设计旨在传承这份机智与勇气。',
@@ -189,7 +190,7 @@ const mainCategories = [
       },
       {
         name: '潜火者·书签',
-        image: '/image/书签/潜火者/6.png',
+        image: '/image/书签/潜火者/4.webp',
         description: '在严峻环境下保存火种，能量隐匿',
         meaning: '以七星岩冻土下藏光点为核心图形，墨黑色调展现能量隐匿的力量。',
         history: '潜火者象征在严峻环境下保存火种的精神，书签设计旨在传承这份隐忍与坚持。',
@@ -201,11 +202,12 @@ const mainCategories = [
   },
   {
     name: '徽章',
-    image: '/image/徽章分类总览图/{112F6962-4CFD-4BD4-B30C-D8E38907DB92}.png',
+    image: '/image/徽章分类总览图/{112F6962-4CFD-4BD4-B30C-D8E38907DB92}.webp',
+    thumbImage: '/image-thumb/徽章分类总览图/{112F6962-4CFD-4BD4-B30C-D8E38907DB92}.webp',
     subCategories: [
       {
         name: '呐喊者·徽章',
-        image: '/image/徽章/呐喊者/09baeb76c3f73bf02b32d08884c647ec_720.png',
+        image: '/image/徽章/呐喊者/09baeb76c3f73bf02b32d08884c647ec_720.webp',
         description: '在信息封锁中撕开缺口，信息穿透',
         meaning: '以声波刺破云层为核心图形，展现信息穿透的力量与勇气。',
         history: '呐喊者象征在信息封锁中撕开缺口的精神，徽章设计以此为灵感。',
@@ -215,7 +217,7 @@ const mainCategories = [
       },
       {
         name: '燃灯者·徽章',
-        image: '/image/徽章/燃灯者/0b26fabef7ef81a1d3ea7788cff37f59_720.png',
+        image: '/image/徽章/燃灯者/0b26fabef7ef81a1d3ea7788cff37f59_720.webp',
         description: '在混乱/溃散中维持仪式，维持',
         meaning: '以时钟与幕布交织为核心图形，展现文化守护者的坚持。',
         history: '燃灯者象征在艰难环境中维持文化仪式的精神，徽章设计以此为灵感。',
@@ -225,7 +227,7 @@ const mainCategories = [
       },
       {
         name: '织网者·徽章',
-        image: '/image/徽章/织网者/a819e66a131f08e438b1967b48a9d734_720.png',
+        image: '/image/徽章/织网者/a819e66a131f08e438b1967b48a9d734_720.webp',
         description: '在割裂/猜忌中编织关系，关系编织',
         meaning: '以节点连线成网为核心图形，展现统一战线的凝聚力。',
         history: '织网者象征在抗战时期编织统一战线的精神，徽章设计以此为灵感。',
@@ -235,7 +237,7 @@ const mainCategories = [
       },
       {
         name: '摆渡者·徽章',
-        image: '/image/徽章/摆渡者/0222d82902e0b914cdbc26a29c4d005e_720.png',
+        image: '/image/徽章/摆渡者/0222d82902e0b914cdbc26a29c4d005e_720.webp',
         description: '在道路受阻时另寻新途，路径重构',
         meaning: '以报纸折成纸船为核心图形，展现灵活应变的智慧。',
         history: '摆渡者象征在艰难环境中寻找新路径的精神，徽章设计以此为灵感。',
@@ -245,7 +247,7 @@ const mainCategories = [
       },
       {
         name: '潜火者·徽章',
-        image: '/image/徽章/潜火者/95f280e7b9ed92abc98da24a002c323b_720.png',
+        image: '/image/徽章/潜火者/95f280e7b9ed92abc98da24a002c323b_720.webp',
         description: '在严峻环境下保存火种，能量隐匿',
         meaning: '以冻土下藏光点为核心图形，展现隐忍待发的精神。',
         history: '潜火者象征在黑暗中保存光明的精神，徽章设计以此为灵感。',
@@ -257,11 +259,12 @@ const mainCategories = [
   },
   {
     name: '印章',
-    image: '/image/印章分类总览图/{6A7D171F-F02E-49BF-BAB4-8E8BC5D36095}.png',
+    image: '/image/印章分类总览图/{6A7D171F-F02E-49BF-BAB4-8E8BC5D36095}.webp',
+    thumbImage: '/image-thumb/印章分类总览图/{6A7D171F-F02E-49BF-BAB4-8E8BC5D36095}.webp',
     subCategories: [
       {
         name: '呐喊者·印章',
-        image: '/image/印章/呐喊者/c4cfad4f264f0df2214c15fb725aef58.png',
+        image: '/image/印章/呐喊者/c4cfad4f264f0df2214c15fb725aef58.webp',
         description: '在信息封锁中撕开缺口，信息穿透',
         meaning: '以声波图形为印章图案，象征文字的力量与声音的传递。',
         history: '印章是抗战时期重要的信息传递工具，设计以此为背景。',
@@ -271,7 +274,7 @@ const mainCategories = [
       },
       {
         name: '燃灯者·印章',
-        image: '/image/印章/燃灯者/a5373b07f4e706a15a9679d4693c9a7e.png',
+        image: '/image/印章/燃灯者/ae6a868e8341494d2fc04dba3586dbda.webp',
         description: '在混乱/溃散中维持仪式，维持',
         meaning: '以时钟与幕布为核心图案，象征文化守护的坚持与传承。',
         history: '印章是抗战时期文化工作者的重要工具，设计以此为背景。',
@@ -281,7 +284,7 @@ const mainCategories = [
       },
       {
         name: '织网者·印章',
-        image: '/image/印章/织网者/c2770b08472822e74baabfed79a6fdba.png',
+        image: '/image/印章/织网者/c2770b08472822e74baabfed79a6fdba.webp',
         description: '在割裂/猜忌中编织关系，关系编织',
         meaning: '以节点连线成网为核心图案，象征统一战线的团结与联络。',
         history: '印章是抗战时期团结各界人士的重要工具，设计以此为背景。',
@@ -291,7 +294,7 @@ const mainCategories = [
       },
       {
         name: '摆渡者·印章',
-        image: '/image/印章/摆渡者/e6f1d9ca74aa352ec0531bfbc46b73f5_720.png',
+        image: '/image/印章/摆渡者/e6f1d9ca74aa352ec0531bfbc46b73f5_720.webp',
         description: '在道路受阻时另寻新途，路径重构',
         meaning: '以报纸纸船为核心图案，象征在绝境中寻找新途径的智慧。',
         history: '印章是抗战时期地下工作者的重要工具，设计以此为背景。',
@@ -301,7 +304,7 @@ const mainCategories = [
       },
       {
         name: '潜火者·印章',
-        image: '/image/印章/潜火者/ae6a868e8341494d2fc04dba3586dbda.png',
+        image: '/image/印章/潜火者/a5373b07f4e706a15a9679d4693c9a7e.webp',
         description: '在严峻环境下保存火种，能量隐匿',
         meaning: '以冻土下藏光点为核心图案，象征在黑暗中保存光明的智慧。',
         history: '印章是抗战时期地下工作者的重要工具，设计以此为背景。',
@@ -313,11 +316,12 @@ const mainCategories = [
   },
   {
     name: '明信片',
-    image: '/image/明信片分类总览图/{099C7002-ECAC-46CB-A6C2-15810E6C5E08}.png',
+    image: '/image/明信片分类总览图/{099C7002-ECAC-46CB-A6C2-15810E6C5E08}.webp',
+    thumbImage: '/image-thumb/明信片分类总览图/{099C7002-ECAC-46CB-A6C2-15810E6C5E08}.webp',
     subCategories: [
       {
         name: '呐喊者·明信片',
-        image: '/image/明信片/呐喊者/6b267e97849ad87816ed302d75fa377c_720.png',
+        image: '/image/明信片/呐喊者/6b267e97849ad87816ed302d75fa377c_720.webp',
         description: '在信息封锁中撕开缺口，信息穿透',
         meaning: '以声波刺破云层为核心，靛蓝色调展现抗战时期的信息传播。',
         history: '抗战时期明信片是重要的信息载体，设计以此为灵感。',
@@ -327,7 +331,7 @@ const mainCategories = [
       },
       {
         name: '燃灯者·明信片',
-        image: '/image/明信片/燃灯者/0ae2fbc9f4b123e13c06afc56b4ec5b1.png',
+        image: '/image/明信片/燃灯者/132a1d1718a017754a1bd2ded367329a_720.webp',
         description: '在混乱/溃散中维持仪式，维持',
         meaning: '以时钟与幕布交织为核心，赭红色调展现西南剧展的坚守精神。',
         history: '西南剧展近百场演出坚守阵地，明信片以此为设计灵感。',
@@ -337,7 +341,7 @@ const mainCategories = [
       },
       {
         name: '织网者·明信片',
-        image: '/image/明信片/织网者/2af3b97e5589098b36e46741b881d9f6.png',
+        image: '/image/明信片/织网者/2af3b97e5589098b36e46741b881d9f6.webp',
         description: '在割裂/猜忌中编织关系，关系编织',
         meaning: '以节点连线成网为核心，青绿色调展现统一战线的凝聚力。',
         history: '中共联络各界进步人士，明信片以此为设计灵感。',
@@ -347,7 +351,7 @@ const mainCategories = [
       },
       {
         name: '摆渡者·明信片',
-        image: '/image/明信片/摆渡者/547794668a5dcf4c10e87387ecedf63a_720.png',
+        image: '/image/明信片/摆渡者/547794668a5dcf4c10e87387ecedf63a_720.webp',
         description: '在道路受阻时另寻新途，路径重构',
         meaning: '以报纸折成纸船为核心，明黄色调展现转移阵地的智慧。',
         history: '地下党员在昭平创办《广西日报》（昭平版），明信片以此为设计灵感。',
@@ -357,7 +361,7 @@ const mainCategories = [
       },
       {
         name: '潜火者·明信片',
-        image: '/image/明信片/潜火者/132a1d1718a017754a1bd2ded367329a_720.png',
+        image: '/image/明信片/潜火者/0ae2fbc9f4b123e13c06afc56b4ec5b1.webp',
         description: '在严峻环境下保存火种，能量隐匿',
         meaning: '以冻土下藏光点为核心，墨黑色调展现隐匿中的坚持。',
         history: '临阳联队从基层武装发展为坚强敌后抗日力量，明信片以此为设计灵感。',
@@ -369,11 +373,12 @@ const mainCategories = [
   },
   {
     name: '贴纸',
-    image: '/image/贴纸分类总览图/{060AA07F-9C1E-4B04-8D9C-245F156E0F43}.png',
+    image: '/image/贴纸分类总览图/{060AA07F-9C1E-4B04-8D9C-245F156E0F43}.webp',
+    thumbImage: '/image-thumb/贴纸分类总览图/{060AA07F-9C1E-4B04-8D9C-245F156E0F43}.webp',
     subCategories: [
       {
         name: '呐喊者·贴纸',
-        image: '/image/贴纸/呐喊者/acb4827dc1e6aaa38abc7b2fbf58d97f_720.png',
+        image: '/image/贴纸/呐喊者/acb4827dc1e6aaa38abc7b2fbf58d97f_720.webp',
         description: '在信息封锁中撕开缺口，信息穿透',
         meaning: '以声波图形为核心设计，靛蓝色调展现信息穿透的力量。',
         history: '贴纸设计传递呐喊者的声音，象征不屈的抗战精神。',
@@ -383,7 +388,7 @@ const mainCategories = [
       },
       {
         name: '燃灯者·贴纸',
-        image: '/image/贴纸/燃灯者/c594e10743b2f2b3e7c3b5fe8f4e9f5e_720.png',
+        image: '/image/贴纸/燃灯者/56f6470b8aecca9edaf66bf1b623e17d_720.webp',
         description: '在混乱/溃散中维持仪式，维持',
         meaning: '以时钟与幕布图形为核心设计，赭红色调展现仪式维持的力量。',
         history: '贴纸设计传递燃灯者的坚守，象征不灭的文化灯火。',
@@ -393,7 +398,7 @@ const mainCategories = [
       },
       {
         name: '织网者·贴纸',
-        image: '/image/贴纸/织网者/ea3b1c7d1b9cd078337983c11971a3d4_720.png',
+        image: '/image/贴纸/织网者/ea3b1c7d1b9cd078337983c11971a3d4_720.webp',
         description: '在割裂/猜忌中编织关系，关系编织',
         meaning: '以节点连线成网图形为核心设计，青绿色调展现关系编织的力量。',
         history: '贴纸设计传递织网者的团结精神，象征凝聚的力量。',
@@ -403,7 +408,7 @@ const mainCategories = [
       },
       {
         name: '摆渡者·贴纸',
-        image: '/image/贴纸/摆渡者/3b99e08230fb160a17c1873c4ee359d5.png',
+        image: '/image/贴纸/摆渡者/3b99e08230fb160a17c1873c4ee359d5.webp',
         description: '在道路受阻时另寻新途，路径重构',
         meaning: '以报纸纸船图形为核心设计，明黄色调展现路径重构的力量。',
         history: '贴纸设计传递摆渡者的智慧，象征灵活应变的精神。',
@@ -413,7 +418,7 @@ const mainCategories = [
       },
       {
         name: '潜火者·贴纸',
-        image: '/image/贴纸/潜火者/56f6470b8aecca9edaf66bf1b623e17d_720.png',
+        image: '/image/贴纸/潜火者/c594e10743b2f2b3e7c3b5fe8f4e9f5e_720.webp',
         description: '在严峻环境下保存火种，能量隐匿',
         meaning: '以冻土下藏光点图形为核心设计，墨黑色调展现能量隐匿的力量。',
         history: '贴纸设计传递潜火者的精神，象征隐忍中的坚持。',
@@ -425,11 +430,12 @@ const mainCategories = [
   },
   {
     name: '磁吸贴',
-    image: '/image/磁吸贴分类总览图/{D9E52198-4E52-4F8F-AC0C-7D2B318C2358}.png',
+    image: '/image/磁吸贴分类总览图/{D9E52198-4E52-4F8F-AC0C-7D2B318C2358}.webp',
+    thumbImage: '/image-thumb/磁吸贴分类总览图/{D9E52198-4E52-4F8F-AC0C-7D2B318C2358}.webp',
     subCategories: [
       {
         name: '呐喊者·磁吸贴',
-        image: '/image/磁吸贴/呐喊者/6cc36a9024d5550fdcb19b5b890e2af6.png',
+        image: '/image/磁吸贴/呐喊者/6cc36a9024d5550fdcb19b5b890e2af6.webp',
         description: '在信息封锁中撕开缺口，信息穿透',
         meaning: '以声波刺破云层为核心图形，展现信息穿透的力量。',
         history: '磁吸贴设计传递呐喊者的声音，象征不屈的抗战精神。',
@@ -439,7 +445,7 @@ const mainCategories = [
       },
       {
         name: '燃灯者·磁吸贴',
-        image: '/image/磁吸贴/燃灯者/8649cca4b29073fb9fc8d62c819e444e.png',
+        image: '/image/磁吸贴/燃灯者/7b68fcbbef97995a09e13bb2ceaff29d.webp',
         description: '在混乱/溃散中维持仪式，维持',
         meaning: '以时钟与幕布交织为核心图形，展现文化守护的坚持。',
         history: '磁吸贴设计传递燃灯者的精神，象征不屈的文化坚守。',
@@ -449,7 +455,7 @@ const mainCategories = [
       },
       {
         name: '织网者·磁吸贴',
-        image: '/image/磁吸贴/织网者/e74c0d8814b5a7a385f5dc540d252e84.png',
+        image: '/image/磁吸贴/织网者/e74c0d8814b5a7a385f5dc540d252e84.webp',
         description: '在割裂/猜忌中编织关系，关系编织',
         meaning: '以节点连线成网为核心图形，展现统一战线的团结。',
         history: '磁吸贴设计传递织网者的精神，象征紧密的团结与联络。',
@@ -459,7 +465,7 @@ const mainCategories = [
       },
       {
         name: '摆渡者·磁吸贴',
-        image: '/image/磁吸贴/摆渡者/5b50c739dcad6237b869f03d8b0551b8_720.png',
+        image: '/image/磁吸贴/摆渡者/5b50c739dcad6237b869f03d8b0551b8_720.webp',
         description: '在道路受阻时另寻新途，路径重构',
         meaning: '以报纸折成纸船为核心图形，展现灵活应变的智慧。',
         history: '磁吸贴设计传递摆渡者的精神，象征不屈的适应力。',
@@ -469,7 +475,7 @@ const mainCategories = [
       },
       {
         name: '潜火者·磁吸贴',
-        image: '/image/磁吸贴/潜火者/7b68fcbbef97995a09e13bb2ceaff29d.png',
+        image: '/image/磁吸贴/潜火者/8649cca4b29073fb9fc8d62c819e444e.webp',
         description: '在严峻环境下保存火种，能量隐匿',
         meaning: '以冻土下藏光点为核心图形，展现隐忍待发的精神。',
         history: '磁吸贴设计传递潜火者的精神，象征不灭的信念之火。',
@@ -481,11 +487,12 @@ const mainCategories = [
   },
   {
     name: '挂绳',
-    image: '/image/挂绳分类总览图/{93721030-0294-4397-BF5D-5FC99BC65471}.png',
+    image: '/image/挂绳分类总览图/{93721030-0294-4397-BF5D-5FC99BC65471}.webp',
+    thumbImage: '/image-thumb/挂绳分类总览图/{93721030-0294-4397-BF5D-5FC99BC65471}.webp',
     subCategories: [
       {
         name: '呐喊者·挂绳',
-        image: '/image/挂绳/呐喊者/37a528cfa35c36e72e065c292a987afb_720.png',
+        image: '/image/挂绳/呐喊者/37a528cfa35c36e72e065c292a987afb_720.webp',
         description: '在信息封锁中撕开缺口，信息穿透',
         meaning: '以声波刺破云层为核心图形，靛蓝色调展现信息穿透的力量。',
         history: '挂绳设计传递呐喊者的声音，象征不屈的抗战精神。',
@@ -495,7 +502,7 @@ const mainCategories = [
       },
       {
         name: '燃灯者·挂绳',
-        image: '/image/挂绳/燃灯者/922d10948af55dd166a096a36ebb2e95_720.png',
+        image: '/image/挂绳/燃灯者/4c405f97b2c5b0ade6839c1bb46a26ff_720.webp',
         description: '在混乱/溃散中维持仪式，维持',
         meaning: '以时钟与幕布交织为核心图形，赭红色调展现仪式维持的力量。',
         history: '挂绳设计传递燃灯者的坚守，象征不灭的文化灯火。',
@@ -505,7 +512,7 @@ const mainCategories = [
       },
       {
         name: '织网者·挂绳',
-        image: '/image/挂绳/织网者/fd748e59056dbda462e0378fed72bb0a_720.png',
+        image: '/image/挂绳/织网者/fd748e59056dbda462e0378fed72bb0a_720.webp',
         description: '在割裂/猜忌中编织关系，关系编织',
         meaning: '以节点连线成网为核心图形，青绿色调展现关系编织的力量。',
         history: '挂绳设计传递织网者的团结精神，象征凝聚的力量。',
@@ -515,7 +522,7 @@ const mainCategories = [
       },
       {
         name: '摆渡者·挂绳',
-        image: '/image/挂绳/摆渡者/5278d6939f143f064dbcaa4ad01ea273_720.png',
+        image: '/image/挂绳/摆渡者/5278d6939f143f064dbcaa4ad01ea273_720.webp',
         description: '在道路受阻时另寻新途，路径重构',
         meaning: '以报纸纸船为核心图形，明黄色调展现路径重构的力量。',
         history: '挂绳设计传递摆渡者的智慧，象征灵活应变的精神。',
@@ -525,7 +532,7 @@ const mainCategories = [
       },
       {
         name: '潜火者·挂绳',
-        image: '/image/挂绳/潜火者/4c405f97b2c5b0ade6839c1bb46a26ff_720.png',
+        image: '/image/挂绳/潜火者/922d10948af55dd166a096a36ebb2e95_720.webp',
         description: '在严峻环境下保存火种，能量隐匿',
         meaning: '以冻土下藏光点为核心图形，墨黑色调展现能量隐匿的力量。',
         history: '挂绳设计传递潜火者的精神，象征隐忍中的坚持。',
