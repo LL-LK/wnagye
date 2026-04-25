@@ -1,0 +1,1281 @@
+<template>
+	<view class="container">
+		<!-- 首页头图Banner区域 -->
+		<view class="banner">
+			<image class="banner-bg" src="/image/1.png" mode="aspectFill"></image>
+			<view class="banner-content">
+				<text class="banner-title">桂林1944·命运应答</text>
+				<text class="banner-subtitle">文创产品数字化展示</text>
+				<text class="banner-intro">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列化文创产品设计</text>
+			</view>
+			<!-- 装饰元素 -->
+			<view class="banner-decoration top-left"></view>
+			<view class="banner-decoration top-right"></view>
+			<view class="banner-decoration bottom-left"></view>
+			<view class="banner-decoration bottom-right"></view>
+		</view>
+
+		<!-- 项目理念区域 -->
+		<view class="concept">
+			<view class="concept-content">
+				<text class="concept-title">项目理念</text>
+				<text class="concept-text">
+					我们将历史精神转化为可视化、可收藏、可传播的产品，通过文创设计让桂林1944年的抗战记忆得以传承。
+					以民国旧报刊元素、桂林山水意境和抗战文化记忆为设计灵感，创造出兼具历史感与现代审美价值的系列文创产品。
+				</text>
+			</view>
+			<!-- 装饰元素 -->
+			<view class="concept-decoration left"></view>
+			<view class="concept-decoration right"></view>
+		</view>
+
+		<!-- 产品分类展示区域 -->
+		<view class="product-category">
+			<text class="section-title">产品分类</text>
+			<view class="category-container">
+				<!-- 侧边导航栏 -->
+				<view class="sidebar">
+					<view v-for="(mainCategory, index) in mainCategories" :key="index" class="sidebar-item" @click="selectMainCategory(index)">
+						<image :src="mainCategory.image" class="sidebar-image" lazy-load></image>
+						<text class="sidebar-name">{{mainCategory.name}}</text>
+					</view>
+				</view>
+
+				<!-- 主分类内容区域 -->
+				<view class="main-content">
+					<view v-if="selectedMainCategory !== -1" class="sub-category-grid">
+						<view v-for="(subCategory, index) in mainCategories[selectedMainCategory].subCategories" :key="index" class="sub-category-item" @click="selectProduct(subCategory)">
+							<image :src="subCategory.image" class="sub-category-image" lazy-load></image>
+							<text class="sub-category-name">{{subCategory.name}}</text>
+							<text class="sub-category-description">{{subCategory.description}}</text>
+						</view>
+					</view>
+					<view v-else class="welcome-content">
+						<text class="welcome-text">请从左侧选择产品类型</text>
+						<image src="/image/1.png" class="welcome-image" mode="aspectFit"></image>
+					</view>
+				</view>
+			</view>
+		</view>
+
+		<!-- 单个产品详情展示区域 -->
+		<view class="product-detail" v-if="selectedProduct" @click.self="closeDetail">
+			<view class="detail-content">
+				<image :src="selectedProduct.image" class="detail-image" @click="zoomImage"></image>
+				<view class="detail-info">
+					<text class="detail-name">{{selectedProduct.name}}</text>
+					<view class="detail-section">
+						<text class="detail-section-title">设计寓意</text>
+						<text class="detail-meaning">{{selectedProduct.meaning || '该产品设计融合了桂林山水元素与抗战文化记忆，展现了历史与现代的结合。'}}</text>
+					</view>
+					<view class="detail-section">
+						<text class="detail-section-title">历史意象</text>
+						<text class="detail-history">{{selectedProduct.history || '1944年桂林抗战时期，无数英雄儿女为了国家和民族的尊严英勇奋斗，这段历史成为了我们宝贵的精神财富。'}}</text>
+					</view>
+					<view class="detail-section" v-if="selectedProduct.material">
+						<text class="detail-section-title">材质说明</text>
+						<text class="detail-material">{{selectedProduct.material}}</text>
+					</view>
+					<view class="detail-section" v-if="selectedProduct.size">
+						<text class="detail-section-title">尺寸规格</text>
+						<text class="detail-size">{{selectedProduct.size}}</text>
+					</view>
+					<view class="detail-section" v-if="selectedProduct.features">
+						<text class="detail-section-title">产品特点</text>
+						<text class="detail-features">{{selectedProduct.features}}</text>
+					</view>
+				</view>
+			</view>
+			<view class="detail-close" @click="closeDetail">关闭</view>
+		</view>
+
+		<!-- 图片放大查看区域 -->
+		<view class="image-zoom" v-if="isZooming" @click="closeZoom">
+			<image :src="selectedProduct?.image" class="zoom-image"></image>
+			<view class="zoom-close" @click.stop="closeZoom">关闭</view>
+		</view>
+
+		<!-- 系列主题整合区域 -->
+		<view class="themes">
+			<text class="section-title">系列主题</text>
+			<view class="theme-timeline">
+				<view v-for="(theme, index) in themes" :key="index" class="theme-item">
+					<view class="theme-dot"></view>
+					<view class="theme-content">
+						<text class="theme-name">{{theme.name}}</text>
+						<text class="theme-desc">{{theme.description}}</text>
+						<text class="theme-geography">{{theme.geography}}</text>
+						<text class="theme-color">{{theme.color}}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+
+		<!-- 结尾展示区域 -->
+		<view class="ending">
+			<text class="ending-title">牢记历史，珍视和平，薪火相传，面向未来</text>
+			<text class="ending-info">项目相关单位信息</text>
+			<!-- 装饰元素 -->
+			<view class="ending-decoration left"></view>
+			<view class="ending-decoration right"></view>
+		</view>
+	</view>
+</template>
+
+<script setup lang="uts">
+	/**
+	 * 导入Vue相关函数
+	 * ref: 用于创建响应式数据
+	 * onMounted: 页面加载完成后执行的生命周期钩子
+	 */
+	import { ref, onMounted } from 'vue'
+
+	/**
+	 * 状态管理
+	 * expandedCategory: 当前展开的分类索引，-1表示无展开分类
+	 * selectedProduct: 当前选中的产品对象，null表示未选中
+	 * isZooming: 是否正在放大查看图片，false表示未放大
+	 */
+	const expandedCategory = ref(-1)
+	const selectedProduct = ref(null)
+	const isZooming = ref(false)
+
+	/**
+	 * 产品分类数据
+	 * 按照五大策略分类：呐喊者、燃灯者、织网者、摆渡者、潜火者
+	 * 每个策略对应不同的桂林地貌、核心图形、色彩和动态隐喻
+	 * 每个分类包含7种产品类型：书签、徽章、挂绳、印章、明信片、贴纸、磁吸贴
+	 */
+	const categories = [
+		{
+			name: '呐喊者',
+			image: '/image/s1.png',
+			description: '在信息封锁中撕开缺口，信息穿透',
+			geography: '独秀峰',
+			coreGraphic: '声波刺破云层',
+			color: '靛蓝',
+			dynamic: '刺破',
+			history: '《救亡日报》在轰炸中坚持手摇印刷、出版发声；中共开展对敌宣传与舆论斗争',
+			products: [
+				{
+					name: '呐喊者·书签',
+					image: '/image/1.png',
+					meaning: '以独秀峰声波刺破云层为核心图形，靛蓝色调展现信息穿透的力量。',
+					history: '《救亡日报》在轰炸中坚持手摇印刷、出版发声，书签设计旨在传递这份不屈的声音。',
+					material: '优质纸张，防水处理，耐用持久。',
+					size: '15cm × 5cm',
+					features: '采用特种工艺印刷，靛蓝色调鲜明，图案清晰，边缘光滑。'
+				},
+				{
+					name: '呐喊者·徽章',
+					image: '/image/2.png',
+					meaning: '以声波刺破云层为核心图形，展现信息穿透的力量与勇气。',
+					history: '呐喊者象征在信息封锁中撕开缺口的精神，徽章设计以此为灵感。',
+					material: '锌合金材质，镀金工艺，色彩鲜艳。',
+					size: '直径3.5cm',
+					features: '采用压铸工艺，表面光滑，色彩持久，配有安全别针。'
+				},
+				{
+					name: '呐喊者·挂绳',
+					image: '/image/3.png',
+					meaning: '将声波图形融入挂绳设计，象征信息的传递与穿透。',
+					history: '抗战时期的信息传递者，挂绳设计象征不屈的声音。',
+					material: '优质尼龙材质，结实耐用，不易褪色。',
+					size: '长度60cm',
+					features: '采用双股编织工艺，结实耐用，配有金属扣，方便使用。'
+				},
+				{
+					name: '呐喊者·印章',
+					image: '/image/4.png',
+					meaning: '以声波图形为印章图案，象征文字的力量与声音的传递。',
+					history: '印章是抗战时期重要的信息传递工具，设计以此为背景。',
+					material: '优质木材，雕刻精细，印面清晰。',
+					size: '直径3cm，高度8cm',
+					features: '采用手工雕刻工艺，印面清晰，木质纹理美观，手感舒适。'
+				},
+				{
+					name: '呐喊者·明信片',
+					image: '/image/5.png',
+					meaning: '以声波刺破云层为核心，靛蓝色调展现抗战时期的信息传播。',
+					history: '抗战时期明信片是重要的信息载体，设计以此为灵感。',
+					material: '优质铜版纸，印刷精美，色彩鲜艳。',
+					size: '10cm × 15cm',
+					features: '采用高清印刷工艺，色彩还原度高，纸张质感优良，适合收藏和邮寄。'
+				},
+				{
+					name: '呐喊者·贴纸',
+					image: '/image/6.png',
+					meaning: '以声波图形为核心设计，靛蓝色调展现信息穿透的力量。',
+					history: '贴纸设计传递呐喊者的声音，象征不屈的抗战精神。',
+					material: '优质PVC材料，防水耐用。',
+					size: '10cm × 10cm',
+					features: '采用彩色印刷工艺，色彩鲜艳，不易褪色，可重复粘贴。'
+				},
+				{
+					name: '呐喊者·磁吸贴',
+					image: '/image/7.png',
+					meaning: '以声波刺破云层为核心图形，展现信息穿透的力量。',
+					history: '磁吸贴设计传递呐喊者的声音，象征不屈的抗战精神。',
+					material: '优质软磁材质，粘性强，不易脱落。',
+					size: '8cm × 8cm',
+					features: '采用彩色印刷工艺，色彩鲜艳，图案清晰，磁力持久。'
+				}
+			]
+		},
+		{
+			name: '燃灯者',
+			image: '/image/s2.png',
+			description: '在混乱/溃散中维持仪式，维持',
+			geography: '象鼻山',
+			coreGraphic: '时钟 + 幕布交织',
+			color: '赭红',
+			dynamic: '维持',
+			history: '西南剧展在时局紧张情况下如期举办，近百场演出坚守文化救亡阵地',
+			products: [
+				{
+					name: '燃灯者·书签',
+					image: '/image/8.png',
+					meaning: '以象鼻山时钟与幕布交织为核心图形，赭红色调展现仪式维持的力量。',
+					history: '西南剧展在时局紧张情况下坚持举办，书签设计旨在传承这份坚守精神。',
+					material: '优质纸张，防水处理，耐用持久。',
+					size: '15cm × 5cm',
+					features: '采用特种工艺印刷，赭红色调鲜明，图案清晰，边缘光滑。'
+				},
+				{
+					name: '燃灯者·徽章',
+					image: '/image/9.png',
+					meaning: '以时钟与幕布交织为核心图形，展现文化守护者的坚持。',
+					history: '燃灯者象征在艰难环境中维持文化仪式的精神，徽章设计以此为灵感。',
+					material: '铜质材质，珐琅工艺，精美细致。',
+					size: '直径4cm',
+					features: '采用珐琅彩工艺，色彩饱满，图案立体，具有较高的收藏价值。'
+				},
+				{
+					name: '燃灯者·挂绳',
+					image: '/image/10.png',
+					meaning: '将时钟与幕布图形融入挂绳设计，象征文化的传承与坚守。',
+					history: '抗战时期的文化工作者，挂绳设计象征不灭的文化灯火。',
+					material: '优质尼龙材质，结实耐用，不易褪色。',
+					size: '长度60cm',
+					features: '采用双股编织工艺，结实耐用，配有金属扣，方便使用。'
+				},
+				{
+					name: '燃灯者·印章',
+					image: '/image/11.png',
+					meaning: '以时钟与幕布为核心图案，象征文化守护的坚持与传承。',
+					history: '印章是抗战时期文化工作者的重要工具，设计以此为背景。',
+					material: '优质木材，雕刻精细，印面清晰。',
+					size: '直径3cm，高度8cm',
+					features: '采用手工雕刻工艺，印面清晰，木质纹理美观，手感舒适。'
+				},
+				{
+					name: '燃灯者·明信片',
+					image: '/image/1.png',
+					meaning: '以时钟与幕布交织为核心，赭红色调展现西南剧展的坚守精神。',
+					history: '西南剧展近百场演出坚守阵地，明信片以此为设计灵感。',
+					material: '优质铜版纸，印刷精美，色彩鲜艳。',
+					size: '10cm × 15cm',
+					features: '采用高清印刷工艺，色彩还原度高，纸张质感优良，适合收藏和邮寄。'
+				},
+				{
+					name: '燃灯者·贴纸',
+					image: '/image/2.png',
+					meaning: '以时钟与幕布图形为核心设计，赭红色调展现仪式维持的力量。',
+					history: '贴纸设计传递燃灯者的坚守，象征不灭的文化灯火。',
+					material: '优质PVC材料，防水耐用。',
+					size: '10cm × 10cm',
+					features: '采用彩色印刷工艺，色彩鲜艳，不易褪色，可重复粘贴。'
+				},
+				{
+					name: '燃灯者·磁吸贴',
+					image: '/image/3.png',
+					meaning: '以时钟与幕布交织为核心图形，展现文化守护的坚持。',
+					history: '磁吸贴设计传递燃灯者的精神，象征不屈的文化坚守。',
+					material: '优质软磁材质，粘性强，不易脱落。',
+					size: '8cm × 8cm',
+					features: '采用彩色印刷工艺，色彩鲜艳，图案清晰，磁力持久。'
+				}
+			]
+		},
+		{
+			name: '织网者',
+			image: '/image/s3.png',
+			description: '在割裂/猜忌中编织关系，关系编织',
+			geography: '两江四湖',
+			coreGraphic: '节点连线成网',
+			color: '青绿',
+			dynamic: '编织',
+			history: '中共主导统一战线，联络各界进步人士，凝聚千余名文化力量共赴国难',
+			products: [
+				{
+					name: '织网者·书签',
+					image: '/image/4.png',
+					meaning: '以两江四湖节点连线成网为核心图形，青绿色调展现关系编织的力量。',
+					history: '织网者象征凝聚千余名文化力量的精神，书签设计旨在传承这份团结精神。',
+					material: '优质纸张，防水处理，耐用持久。',
+					size: '15cm × 5cm',
+					features: '采用特种工艺印刷，青绿色调鲜明，图案清晰，边缘光滑。'
+				},
+				{
+					name: '织网者·徽章',
+					image: '/image/5.png',
+					meaning: '以节点连线成网为核心图形，展现统一战线的凝聚力。',
+					history: '织网者象征在抗战时期编织统一战线的精神，徽章设计以此为灵感。',
+					material: '锌合金材质，镀金工艺，色彩鲜艳。',
+					size: '直径3.5cm',
+					features: '采用压铸工艺，表面光滑，色彩持久，配有安全别针。'
+				},
+				{
+					name: '织网者·挂绳',
+					image: '/image/6.png',
+					meaning: '将节点连线成网图形融入挂绳设计，象征团结与联络。',
+					history: '抗战时期的统一战线工作者，挂绳设计象征紧密的团结。',
+					material: '优质尼龙材质，结实耐用，不易褪色。',
+					size: '长度60cm',
+					features: '采用双股编织工艺，结实耐用，配有金属扣，方便使用。'
+				},
+				{
+					name: '织网者·印章',
+					image: '/image/7.png',
+					meaning: '以节点连线成网为核心图案，象征统一战线的团结与联络。',
+					history: '印章是抗战时期团结各界人士的重要工具，设计以此为背景。',
+					material: '优质木材，雕刻精细，印面清晰。',
+					size: '直径3cm，高度8cm',
+					features: '采用手工雕刻工艺，印面清晰，木质纹理美观，手感舒适。'
+				},
+				{
+					name: '织网者·明信片',
+					image: '/image/8.png',
+					meaning: '以节点连线成网为核心，青绿色调展现统一战线的凝聚力。',
+					history: '中共联络各界进步人士，明信片以此为设计灵感。',
+					material: '优质铜版纸，印刷精美，色彩鲜艳。',
+					size: '10cm × 15cm',
+					features: '采用高清印刷工艺，色彩还原度高，纸张质感优良，适合收藏和邮寄。'
+				},
+				{
+					name: '织网者·贴纸',
+					image: '/image/9.png',
+					meaning: '以节点连线成网图形为核心设计，青绿色调展现关系编织的力量。',
+					history: '贴纸设计传递织网者的团结精神，象征凝聚的力量。',
+					material: '优质PVC材料，防水耐用。',
+					size: '10cm × 10cm',
+					features: '采用彩色印刷工艺，色彩鲜艳，不易褪色，可重复粘贴。'
+				},
+				{
+					name: '织网者·磁吸贴',
+					image: '/image/10.png',
+					meaning: '以节点连线成网为核心图形，展现统一战线的团结。',
+					history: '磁吸贴设计传递织网者的精神，象征紧密的团结与联络。',
+					material: '优质软磁材质，粘性强，不易脱落。',
+					size: '8cm × 8cm',
+					features: '采用彩色印刷工艺，色彩鲜艳，图案清晰，磁力持久。'
+				}
+			]
+		},
+		{
+			name: '渡河者',
+			image: '/image/s4.png',
+			description: '在道路受阻时另寻新途，路径重构',
+			geography: '漓江断桥',
+			coreGraphic: '报纸折成纸船',
+			color: '明黄',
+			dynamic: '转移',
+			history: '桂林沦陷后，地下党员在昭平创办《广西日报》（昭平版），转移阵地继续战斗',
+			products: [
+				{
+					name: '渡河者·书签',
+					image: '/image/11.png',
+					meaning: '以漓江断桥上报纸折成纸船为核心图形，明黄色调展现路径重构的力量。',
+					history: '渡河者象征在绝境中另寻新途的精神，书签设计旨在传承这份机智与勇气。',
+					material: '优质纸张，防水处理，耐用持久。',
+					size: '15cm × 5cm',
+					features: '采用特种工艺印刷，明黄色调鲜明，图案清晰，边缘光滑。'
+				},
+				{
+					name: '渡河者·徽章',
+					image: '/image/1.png',
+					meaning: '以报纸折成纸船为核心图形，展现灵活应变的智慧。',
+					history: '渡河者象征在艰难环境中寻找新路径的精神，徽章设计以此为灵感。',
+					material: '铜质材质，珐琅工艺，精美细致。',
+					size: '直径4cm',
+					features: '采用珐琅彩工艺，色彩饱满，图案立体，具有较高的收藏价值。'
+				},
+				{
+					name: '渡河者·挂绳',
+					image: '/image/2.png',
+					meaning: '将报纸纸船图形融入挂绳设计，象征灵活的转移与应变。',
+					history: '抗战时期转移阵地的工作者，挂绳设计象征不屈的适应力。',
+					material: '优质尼龙材质，结实耐用，不易褪色。',
+					size: '长度60cm',
+					features: '采用双股编织工艺，结实耐用，配有金属扣，方便使用。'
+				},
+				{
+					name: '渡河者·印章',
+					image: '/image/3.png',
+					meaning: '以报纸纸船为核心图案，象征在绝境中寻找新途径的智慧。',
+					history: '印章是抗战时期地下工作者的重要工具，设计以此为背景。',
+					material: '优质木材，雕刻精细，印面清晰。',
+					size: '直径3cm，高度8cm',
+					features: '采用手工雕刻工艺，印面清晰，木质纹理美观，手感舒适。'
+				},
+				{
+					name: '渡河者·明信片',
+					image: '/image/4.png',
+					meaning: '以报纸折成纸船为核心，明黄色调展现转移阵地的智慧。',
+					history: '地下党员在昭平创办《广西日报》（昭平版），明信片以此为设计灵感。',
+					material: '优质铜版纸，印刷精美，色彩鲜艳。',
+					size: '10cm × 15cm',
+					features: '采用高清印刷工艺，色彩还原度高，纸张质感优良，适合收藏和邮寄。'
+				},
+				{
+					name: '渡河者·贴纸',
+					image: '/image/5.png',
+					meaning: '以报纸纸船图形为核心设计，明黄色调展现路径重构的力量。',
+					history: '贴纸设计传递渡河者的智慧，象征灵活应变的精神。',
+					material: '优质PVC材料，防水耐用。',
+					size: '10cm × 10cm',
+					features: '采用彩色印刷工艺，色彩鲜艳，不易褪色，可重复粘贴。'
+				},
+				{
+					name: '渡河者·磁吸贴',
+					image: '/image/6.png',
+					meaning: '以报纸折成纸船为核心图形，展现灵活应变的智慧。',
+					history: '磁吸贴设计传递渡河者的精神，象征不屈的适应力。',
+					material: '优质软磁材质，粘性强，不易脱落。',
+					size: '8cm × 8cm',
+					features: '采用彩色印刷工艺，色彩鲜艳，图案清晰，磁力持久。'
+				}
+			]
+		},
+		{
+			name: '潜火者',
+			image: '/image/s5.png',
+			description: '在严峻环境下保存火种，能量隐匿',
+			geography: '七星岩',
+			coreGraphic: '冻土下藏光点',
+			color: '墨黑',
+			dynamic: '隐匿',
+			history: '中共广西省工委领导的临阳联队，从基层武装发展为坚强敌后抗日力量',
+			products: [
+				{
+					name: '潜火者·书签',
+					image: '/image/7.png',
+					meaning: '以七星岩冻土下藏光点为核心图形，墨黑色调展现能量隐匿的力量。',
+					history: '潜火者象征在严峻环境下保存火种的精神，书签设计旨在传承这份隐忍与坚持。',
+					material: '优质纸张，防水处理，耐用持久。',
+					size: '15cm × 5cm',
+					features: '采用特种工艺印刷，墨黑色调鲜明，图案清晰，边缘光滑。'
+				},
+				{
+					name: '潜火者·徽章',
+					image: '/image/8.png',
+					meaning: '以冻土下藏光点为核心图形，展现隐忍待发的精神。',
+					history: '潜火者象征在黑暗中保存光明的精神，徽章设计以此为灵感。',
+					material: '锌合金材质，镀金工艺，色彩鲜艳。',
+					size: '直径3.5cm',
+					features: '采用压铸工艺，表面光滑，色彩持久，配有安全别针。'
+				},
+				{
+					name: '潜火者·挂绳',
+					image: '/image/9.png',
+					meaning: '将冻土下藏光点图形融入挂绳设计，象征隐忍与坚持。',
+					history: '抗战时期的敌后工作者，挂绳设计象征不灭的信念之火。',
+					material: '优质尼龙材质，结实耐用，不易褪色。',
+					size: '长度60cm',
+					features: '采用双股编织工艺，结实耐用，配有金属扣，方便使用。'
+				},
+				{
+					name: '潜火者·印章',
+					image: '/image/10.png',
+					meaning: '以冻土下藏光点为核心图案，象征在黑暗中保存光明的智慧。',
+					history: '印章是抗战时期地下工作者的重要工具，设计以此为背景。',
+					material: '优质木材，雕刻精细，印面清晰。',
+					size: '直径3cm，高度8cm',
+					features: '采用手工雕刻工艺，印面清晰，木质纹理美观，手感舒适。'
+				},
+				{
+					name: '潜火者·明信片',
+					image: '/image/11.png',
+					meaning: '以冻土下藏光点为核心，墨黑色调展现隐匿中的坚持。',
+					history: '临阳联队从基层武装发展为坚强敌后抗日力量，明信片以此为设计灵感。',
+					material: '优质铜版纸，印刷精美，色彩鲜艳。',
+					size: '10cm × 15cm',
+					features: '采用高清印刷工艺，色彩还原度高，纸张质感优良，适合收藏和邮寄。'
+				},
+				{
+					name: '潜火者·贴纸',
+					image: '/image/1.png',
+					meaning: '以冻土下藏光点图形为核心设计，墨黑色调展现能量隐匿的力量。',
+					history: '贴纸设计传递潜火者的精神，象征隐忍中的坚持。',
+					material: '优质PVC材料，防水耐用。',
+					size: '10cm × 10cm',
+					features: '采用彩色印刷工艺，色彩鲜艳，不易褪色，可重复粘贴。'
+				},
+				{
+					name: '潜火者·磁吸贴',
+					image: '/image/2.png',
+					meaning: '以冻土下藏光点为核心图形，展现隐忍待发的精神。',
+					history: '磁吸贴设计传递潜火者的精神，象征不灭的信念之火。',
+					material: '优质软磁材质，粘性强，不易脱落。',
+					size: '8cm × 8cm',
+					features: '采用彩色印刷工艺，色彩鲜艳，图案清晰，磁力持久。'
+				}
+			]
+		}
+	]
+
+	/**
+	 * 系列主题数据
+	 * 包含呐喊者、燃灯者、织网者、渡河者、潜火者五大策略
+	 * 每个主题包含名称、描述、桂林地貌、核心图形、色彩和动态隐喻
+	 */
+	const themes = [
+		{
+			name: '呐喊者',
+			description: '在信息封锁中撕开缺口，信息穿透',
+			geography: '独秀峰',
+			coreGraphic: '声波刺破云层',
+			color: '靛蓝',
+			dynamic: '刺破',
+			history: '《救亡日报》在轰炸中坚持手摇印刷、出版发声；中共开展对敌宣传与舆论斗争'
+		},
+		{
+			name: '燃灯者',
+			description: '在混乱/溃散中维持仪式，维持',
+			geography: '象鼻山',
+			coreGraphic: '时钟 + 幕布交织',
+			color: '赭红',
+			dynamic: '维持',
+			history: '西南剧展在时局紧张情况下如期举办，近百场演出坚守文化救亡阵地'
+		},
+		{
+			name: '织网者',
+			description: '在割裂/猜忌中编织关系，关系编织',
+			geography: '两江四湖',
+			coreGraphic: '节点连线成网',
+			color: '青绿',
+			dynamic: '编织',
+			history: '中共主导统一战线，联络各界进步人士，凝聚千余名文化力量共赴国难'
+		},
+		{
+			name: '渡河者',
+			description: '在道路受阻时另寻新途，路径重构',
+			geography: '漓江断桥',
+			coreGraphic: '报纸折成纸船',
+			color: '明黄',
+			dynamic: '转移',
+			history: '桂林沦陷后，地下党员在昭平创办《广西日报》（昭平版），转移阵地继续战斗'
+		},
+		{
+			name: '潜火者',
+			description: '在严峻环境下保存火种，能量隐匿',
+			geography: '七星岩',
+			coreGraphic: '冻土下藏光点',
+			color: '墨黑',
+			dynamic: '隐匿',
+			history: '中共广西省工委领导的临阳联队，从基层武装发展为坚强敌后抗日力量'
+		}
+	]
+
+	/**
+	 * 切换分类展开/收起状态
+	 * @param {number} index - 分类索引
+	 */
+	const toggleCategory = (index) => {
+		expandedCategory.value = expandedCategory.value === index ? -1 : index
+	}
+
+	/**
+	 * 选择产品查看详情
+	 * @param {Object} product - 产品对象
+	 */
+	const selectProduct = (product) => {
+		selectedProduct.value = product
+	}
+
+	/**
+	 * 关闭产品详情
+	 */
+	const closeDetail = () => {
+		selectedProduct.value = null
+	}
+
+	/**
+	 * 放大查看图片
+	 */
+	const zoomImage = () => {
+		isZooming.value = true
+	}
+
+	/**
+	 * 关闭图片放大
+	 */
+	const closeZoom = () => {
+		isZooming.value = false
+	}
+
+	/**
+	 * 页面加载完成后执行
+	 * 初始化页面逻辑
+	 */
+	onMounted(() => {
+		console.log('页面加载完成')
+	})
+</script>
+
+<style>
+	/* 全局样式 */
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	.container {
+		width: 100%;
+		overflow-x: hidden;
+		background-color: #F5F0E6;
+		font-family: '微软雅黑', 'Microsoft YaHei', Arial, sans-serif;
+	}
+
+	/* 首页头图Banner区域 */
+	.banner {
+		position: relative;
+		height: 100vh;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.banner-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		filter: brightness(0.7);
+	}
+
+	.banner-content {
+		position: relative;
+		z-index: 2;
+		text-align: center;
+		color: #fff;
+		padding: 0 20px;
+	}
+
+	.banner-title {
+		font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+		font-size: 3.5rem;
+		font-weight: bold;
+		color: #D4AF37;
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+		margin-bottom: 20px;
+		display: block;
+	}
+
+	.banner-subtitle {
+		font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+		font-size: 1.8rem;
+		color: #8B4513;
+		margin-bottom: 30px;
+		display: block;
+		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+	}
+
+	.banner-intro {
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+		font-size: 1rem;
+		color: #000080;
+		line-height: 1.5;
+		max-width: 800px;
+		margin: 0 auto;
+		text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+	}
+
+	/* 项目理念区域 */
+	.concept {
+		padding: 80px 20px;
+		background-color: #F5F0E6;
+		position: relative;
+	}
+
+	.concept::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('/image/1.png');
+		background-size: cover;
+		background-position: center;
+		opacity: 0.1;
+		z-index: 1;
+	}
+
+	.concept-content {
+		position: relative;
+		z-index: 2;
+		max-width: 1200px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.concept-title {
+		font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+		font-size: 2.5rem;
+		color: #8B4513;
+		margin-bottom: 30px;
+		display: block;
+	}
+
+	.concept-text {
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+		font-size: 1.1rem;
+		color: #000080;
+		line-height: 1.5;
+		max-width: 800px;
+		margin: 0 auto;
+		text-align: left;
+	}
+
+	/* 产品分类展示区域 */
+	.product-category {
+		padding: 80px 20px;
+		background-color: #fff;
+	}
+
+	.section-title {
+		font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+		font-size: 2.5rem;
+		color: #8B4513;
+		text-align: center;
+		margin-bottom: 50px;
+		display: block;
+	}
+
+	.category-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 30px;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.category-item {
+		background-color: #F5F0E6;
+		border-radius: 10px;
+		overflow: hidden;
+		transition: all 0.3s ease;
+		cursor: pointer;
+	}
+
+	.category-item:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+	}
+
+	.category-image {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+	}
+
+	.category-name {
+		font-family: '思源黑体', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+		font-size: 1.2rem;
+		font-weight: bold;
+		color: #8B4513;
+		padding: 20px;
+		display: block;
+		text-align: center;
+	}
+
+	.category-description {
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+		font-size: 0.9rem;
+		color: #000080;
+		padding: 0 20px;
+		display: block;
+		text-align: center;
+		line-height: 1.4;
+	}
+
+	.category-info {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 10px 20px;
+		gap: 15px;
+	}
+
+	.category-geography,
+	.category-color {
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+		font-size: 0.8rem;
+		padding: 5px 10px;
+		border-radius: 5px;
+	}
+
+	.category-geography {
+		background-color: rgba(139, 69, 19, 0.1);
+		color: #8B4513;
+	}
+
+	.category-color {
+		background-color: rgba(0, 0, 128, 0.1);
+		color: #000080;
+	}
+
+	.category-detail {
+		padding: 0 20px 20px;
+		background-color: #fff;
+		animation: slideDown 0.3s ease;
+	}
+
+	/* 下滑动画 */
+	@keyframes slideDown {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.product-item {
+		display: flex;
+		align-items: center;
+		margin-bottom: 10px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.product-item:hover {
+		transform: translateX(5px);
+	}
+
+	.product-image {
+		width: 50px;
+		height: 50px;
+		object-fit: cover;
+		margin-right: 15px;
+		border-radius: 5px;
+	}
+
+	.product-name {
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+		font-size: 1rem;
+		color: #000080;
+	}
+
+	/* 单个产品详情展示区域 */
+	.product-detail {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.8);
+		z-index: 1000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+		animation: fadeIn 0.3s ease;
+	}
+
+	/* 淡入动画 */
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	.detail-content {
+		background-color: #F5F0E6;
+		border-radius: 10px;
+		padding: 40px;
+		max-width: 900px;
+		width: 100%;
+		max-height: 80vh;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		animation: slideUp 0.3s ease;
+	}
+
+	/* 上滑动画 */
+	@keyframes slideUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.detail-image {
+		width: 100%;
+		max-width: 500px;
+		height: auto;
+		border-radius: 10px;
+		margin-bottom: 30px;
+		cursor: zoom-in;
+		transition: all 0.3s ease;
+	}
+
+	.detail-image:hover {
+		transform: scale(1.02);
+	}
+
+	.detail-info {
+		width: 100%;
+		text-align: left;
+	}
+
+	.detail-name {
+		font-family: '思源黑体', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: #8B4513;
+		margin-bottom: 20px;
+		display: block;
+	}
+
+	.detail-meaning {
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+		font-size: 1rem;
+		color: #000080;
+		line-height: 1.5;
+		margin-bottom: 20px;
+		display: block;
+	}
+
+	.detail-history {
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+		font-size: 1rem;
+		color: #000080;
+		line-height: 1.5;
+		margin-bottom: 20px;
+		display: block;
+	}
+
+	.detail-section {
+		margin-bottom: 20px;
+		padding: 15px;
+		background-color: rgba(255, 255, 255, 0.8);
+		border-radius: 8px;
+		transition: all 0.3s ease;
+	}
+
+	.detail-section:hover {
+		background-color: rgba(255, 255, 255, 1);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.detail-section-title {
+		font-family: '思源黑体', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+		font-size: 1.1rem;
+		font-weight: bold;
+		color: #8B4513;
+		margin-bottom: 10px;
+		display: block;
+		border-bottom: 2px solid #D4AF37;
+		padding-bottom: 5px;
+	}
+
+	.detail-meaning,
+	.detail-history,
+	.detail-material,
+	.detail-size,
+	.detail-features {
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+		font-size: 1rem;
+		color: #000080;
+		line-height: 1.5;
+		display: block;
+	}
+
+	.detail-material,
+	.detail-size,
+	.detail-features {
+		color: #8B4513;
+	}
+
+	.detail-close {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		color: #fff;
+		font-size: 1.2rem;
+		cursor: pointer;
+		background-color: #8B0000;
+		padding: 10px 20px;
+		border-radius: 5px;
+		transition: all 0.3s ease;
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+	}
+
+	.detail-close:hover {
+		background-color: #6B0000;
+		transform: scale(1.05);
+	}
+
+	/* 图片放大查看区域 */
+	.image-zoom {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.95);
+		z-index: 2000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		animation: fadeIn 0.3s ease;
+	}
+
+	.zoom-image {
+		max-width: 90%;
+		max-height: 90%;
+		object-fit: contain;
+		cursor: zoom-out;
+		animation: scaleIn 0.3s ease;
+	}
+
+	/* 缩放动画 */
+	@keyframes scaleIn {
+		from {
+			opacity: 0;
+			transform: scale(0.8);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
+	.zoom-close {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		color: #fff;
+		font-size: 1.2rem;
+		cursor: pointer;
+		background-color: #8B0000;
+		padding: 10px 20px;
+		border-radius: 5px;
+		transition: all 0.3s ease;
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+	}
+
+	.zoom-close:hover {
+		background-color: #6B0000;
+		transform: scale(1.05);
+	}
+
+	/* 系列主题整合区域 */
+	.themes {
+		padding: 80px 20px;
+		background-color: #F5F0E6;
+	}
+
+	.theme-timeline {
+		max-width: 1000px;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	.theme-timeline::before {
+		content: '';
+		position: absolute;
+		left: 50%;
+		top: 0;
+		bottom: 0;
+		width: 2px;
+		background-color: #8B4513;
+		transform: translateX(-50%);
+	}
+
+	.theme-item {
+		display: flex;
+		margin-bottom: 50px;
+		position: relative;
+	}
+
+	.theme-dot {
+		position: absolute;
+		left: 50%;
+		top: 10px;
+		width: 20px;
+		height: 20px;
+		background-color: #D4AF37;
+		border-radius: 50%;
+		transform: translateX(-50%);
+		z-index: 1;
+		transition: all 0.3s ease;
+	}
+
+	.theme-item:hover .theme-dot {
+		transform: translateX(-50%) scale(1.2);
+		box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+	}
+
+	.theme-content {
+		width: 45%;
+		background-color: #fff;
+		padding: 30px;
+		border-radius: 10px;
+		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease;
+	}
+
+	.theme-item:hover .theme-content {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+	}
+
+	.theme-item:nth-child(even) .theme-content {
+		margin-left: auto;
+	}
+
+	.theme-name {
+		font-family: '思源黑体', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+		font-size: 1.3rem;
+		font-weight: bold;
+		color: #8B4513;
+		margin-bottom: 15px;
+		display: block;
+	}
+
+	.theme-desc {
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+		font-size: 1rem;
+		color: #000080;
+		line-height: 1.5;
+	}
+
+	/* 结尾展示区域 */
+	.ending {
+		padding: 80px 20px;
+		background-color: #fff;
+		text-align: center;
+		background: linear-gradient(to bottom, #F5F0E6, #fff);
+	}
+
+	.ending-title {
+		font-family: '楷体', 'STKaiti', 'KaiTi', serif;
+		font-size: 2rem;
+		font-weight: bold;
+		color: #8B0000;
+		margin-bottom: 40px;
+		display: block;
+		line-height: 1.5;
+	}
+
+	.ending-info {
+		font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+		font-size: 0.8rem;
+		color: #8B4513;
+	}
+
+	/* 响应式设计 */
+	@media (max-width: 1024px) {
+		.category-grid {
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		}
+
+		.theme-content {
+			padding: 20px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.banner-title {
+			font-size: 2.5rem;
+		}
+
+		.banner-subtitle {
+			font-size: 1.5rem;
+		}
+
+		.banner-intro {
+			font-size: 0.9rem;
+		}
+
+		.concept-title,
+		.section-title {
+			font-size: 2rem;
+		}
+
+		.concept-text {
+			font-size: 1rem;
+		}
+
+		.category-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.theme-timeline::before {
+			left: 20px;
+		}
+
+		.theme-dot {
+			left: 20px;
+		}
+
+		.theme-content {
+			width: calc(100% - 60px);
+			margin-left: 60px !important;
+		}
+
+		.detail-content {
+			padding: 20px;
+		}
+
+		.ending-title {
+			font-size: 1.5rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.banner-title {
+			font-size: 2rem;
+		}
+
+		.banner-subtitle {
+			font-size: 1.2rem;
+		}
+
+		.concept-title,
+		.section-title {
+			font-size: 1.8rem;
+		}
+
+		.theme-content {
+			padding: 15px;
+		}
+
+		.theme-name {
+			font-size: 1.1rem;
+		}
+
+		.ending-title {
+			font-size: 1.2rem;
+		}
+	}
+</style>
