@@ -4,14 +4,20 @@
     <div class="banner">
       <img class="banner-bg" src="/image/2.webp" alt="桂林1944背景" fetchpriority="high" />
       <div class="banner-content">
+        <h1 class="banner-title">桂林1944·命运应答</h1>
+        <h2 class="banner-subtitle">文创产品数字化展示</h2>
+        <p class="banner-intro">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列文化产品设计</p>
         <div class="banner-divider">
           <div class="divider-star">★</div>
         </div>
-        <h1 class="banner-title">桂林1944·命运应答</h1>
-        <h2 class="banner-subtitle">文创产品数字化展示</h2>
-        <p class="banner-intro">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列化文创产品设计</p>
+        <p class="banner-motto">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列文化产品设计</p>
         <div class="banner-stamp">桂林1944</div>
       </div>
+      <!-- 装饰元素 -->
+      <div class="banner-decoration top-left"></div>
+      <div class="banner-decoration top-right"></div>
+      <div class="banner-decoration bottom-left"></div>
+      <div class="banner-decoration bottom-right"></div>
     </div>
 
 
@@ -766,6 +772,7 @@ const closeZoom = () => {
   width: 100%;
   height: 100%;
   z-index: 1;
+  filter: brightness(0.7);
   object-fit: cover;
 }
 
@@ -774,7 +781,51 @@ const closeZoom = () => {
   z-index: 2;
   text-align: center;
   color: #fff;
-  padding: 100px 20px 0;
+  padding: 0 20px;
+}
+
+.banner-title {
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #D4AF37;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin-bottom: 20px;
+}
+
+.banner-subtitle {
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 1.8rem;
+  color: #F5F0E6;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.banner-intro {
+  font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+  font-size: 1rem;
+  color: #F5F0E6;
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* 项目理念内容 */
+.banner-concept {
+  max-width: 600px;
+  margin: 0 auto 30px;
+  text-align: center;
+}
+
+.banner-concept-text {
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 0.9rem;
+  color: #D4AF37;
+  line-height: 1.6;
+  margin: 8px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  font-weight: 500;
 }
 
 /* 分隔线 */
@@ -782,87 +833,87 @@ const closeZoom = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 30px auto;
-  max-width: 350px;
+  margin: 20px auto;
+  max-width: 400px;
 }
 
 .banner-divider::before,
 .banner-divider::after {
   content: '';
   flex: 1;
-  height: 3px;
-  background: #C41E3A;
-  margin: 0 15px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  margin: 0 20px;
 }
 
 .divider-star {
-  font-size: 2rem;
-  color: #C41E3A;
+  font-size: 1.2rem;
+  color: #D4AF37;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-.banner-title {
-  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 5rem;
-  font-weight: bold;
-  color: #C41E3A;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  margin: 30px 0;
-}
-
-.banner-subtitle {
-  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 2.2rem;
+/* 主标语 */
+.banner-motto {
+  font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+  font-size: 0.95rem;
   color: #F5F0E6;
-  background: linear-gradient(90deg, rgba(196, 30, 58, 0.9), rgba(160, 20, 40, 0.9), rgba(196, 30, 58, 0.9));
-  padding: 12px 35px;
-  display: inline-block;
-  margin-bottom: 25px;
-  border-radius: 4px;
-  position: relative;
-}
-
-.banner-subtitle::before,
-.banner-subtitle::after {
-  content: '◆';
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #FFD700;
-  font-size: 1rem;
-}
-
-.banner-subtitle::before {
-  left: 15px;
-}
-
-.banner-subtitle::after {
-  right: 15px;
-}
-
-.banner-intro {
-  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 1.3rem;
-  color: #C41E3A;
-  line-height: 1.8;
-  max-width: 650px;
-  margin: 0 auto 25px;
+  line-height: 1.4;
+  max-width: 700px;
+  margin: 20px auto 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  font-style: italic;
 }
 
 /* 印章 */
 .banner-stamp {
   display: inline-block;
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 1.5rem;
-  color: #C41E3A;
+  font-size: 1.1rem;
+  color: #D4AF37;
   font-weight: bold;
-  padding: 10px 20px;
-  border: 3px solid #C41E3A;
+  padding: 8px 16px;
+  border: 2px solid #D4AF37;
   border-radius: 4px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  margin-top: 15px;
+  margin-top: 10px;
   letter-spacing: 2px;
-  background: rgba(255, 215, 0, 0.2);
+}
+
+/* Banner装饰元素 */
+.banner-decoration {
+  position: absolute;
+  z-index: 2;
+  width: 100px;
+  height: 100px;
+  border: 3px solid rgba(212, 175, 55, 0.5);
+}
+
+.banner-decoration.top-left {
+  top: 30px;
+  left: 30px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.banner-decoration.top-right {
+  top: 30px;
+  right: 30px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.banner-decoration.bottom-left {
+  bottom: 30px;
+  left: 30px;
+  border-right: none;
+  border-top: none;
+}
+
+.banner-decoration.bottom-right {
+  bottom: 30px;
+  right: 30px;
+  border-left: none;
+  border-top: none;
 }
 
 /* 响应式设计 */
@@ -873,13 +924,34 @@ const closeZoom = () => {
     padding: 60px 20px;
   }
   
-  .banner-content {
-    padding: 60px 20px 0;
+  .banner-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .banner-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+  
+  .banner-intro {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  
+  .banner-concept {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .banner-concept-text {
+    font-size: 0.8rem;
+    margin: 6px 0;
   }
   
   .banner-divider {
     max-width: 300px;
-    margin: 25px auto;
+    margin: 15px auto;
   }
   
   .banner-divider::before,
@@ -887,30 +959,39 @@ const closeZoom = () => {
     margin: 0 15px;
   }
   
-  .divider-star {
-    font-size: 1.6rem;
-  }
-  
-  .banner-title {
-    font-size: 3.5rem;
-    margin: 25px 0;
-  }
-  
-  .banner-subtitle {
-    font-size: 1.8rem;
-    padding: 10px 30px;
-    margin-bottom: 20px;
-  }
-  
-  .banner-intro {
-    font-size: 1.15rem;
-    margin-bottom: 20px;
+  .banner-motto {
+    font-size: 0.85rem;
+    margin: 15px auto 20px;
   }
   
   .banner-stamp {
-    font-size: 1.25rem;
-    padding: 8px 16px;
-    border-width: 2.5px;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+  
+  .banner-decoration {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .banner-decoration.top-left,
+  .banner-decoration.top-right {
+    top: 20px;
+  }
+  
+  .banner-decoration.bottom-left,
+  .banner-decoration.bottom-right {
+    bottom: 20px;
+  }
+  
+  .banner-decoration.top-left,
+  .banner-decoration.bottom-left {
+    left: 20px;
+  }
+  
+  .banner-decoration.top-right,
+  .banner-decoration.bottom-right {
+    right: 20px;
   }
 }
 
@@ -919,35 +1000,55 @@ const closeZoom = () => {
     padding: 40px 15px;
   }
   
-  .banner-content {
-    padding: 40px 15px 0;
-  }
-  
-  .banner-divider {
-    max-width: 250px;
-    margin: 20px auto;
-  }
-  
-  .divider-star {
-    font-size: 1.4rem;
-  }
-  
   .banner-title {
-    font-size: 2.8rem;
+    font-size: 2rem;
   }
   
   .banner-subtitle {
-    font-size: 1.5rem;
-    padding: 8px 25px;
+    font-size: 1.2rem;
   }
   
   .banner-intro {
-    font-size: 1.05rem;
+    font-size: 0.8rem;
+  }
+  
+  .banner-concept-text {
+    font-size: 0.75rem;
+  }
+  
+  .banner-motto {
+    font-size: 0.8rem;
   }
   
   .banner-stamp {
-    font-size: 1.1rem;
-    padding: 7px 14px;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+  
+  .banner-decoration {
+    width: 40px;
+    height: 40px;
+    border-width: 2px;
+  }
+  
+  .banner-decoration.top-left,
+  .banner-decoration.top-right {
+    top: 15px;
+  }
+  
+  .banner-decoration.bottom-left,
+  .banner-decoration.bottom-right {
+    bottom: 15px;
+  }
+  
+  .banner-decoration.top-left,
+  .banner-decoration.bottom-left {
+    left: 15px;
+  }
+  
+  .banner-decoration.top-right,
+  .banner-decoration.bottom-right {
+    right: 15px;
   }
 }
 
