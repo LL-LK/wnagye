@@ -3,34 +3,25 @@
     <!-- 首页头图Banner区域 -->
     <div class="banner">
       <img class="banner-bg" src="/image/2.webp" alt="桂林1944背景" fetchpriority="high" />
-      <div class="banner-concept-paper">
-        <p class="banner-concept-text">文化如山河，薪火相传</p>
-        <p class="banner-concept-text">在战火的淬炼中，文化是民族最硬的脊梁。</p>
-        <p class="banner-concept-text">在岁月的回响里，信念是永恒的航标。</p>
-        <p class="banner-concept-text">无论是烽火如何远，不论征程有多艰险，</p>
-        <p class="banner-concept-text">以笔为炬，以文为帆，</p>
-        <p class="banner-concept-text">让文化之光，永远照亮前行之路。</p>
-      </div>
       <div class="banner-content">
+        <div class="banner-concept">
+          <p class="banner-concept-text">文化如山，薪火相传</p>
+          <p class="banner-concept-text">在战火的淬炼中，</p>
+          <p class="banner-concept-text">文化是民族不屈的脊梁。</p>
+          <p class="banner-concept-text">在岁月的回响里，</p>
+          <p class="banner-concept-text">信念是未来的航向，不论征程有多艰险。</p>
+          <p class="banner-concept-text">不论烽烟如何远，</p>
+          <p class="banner-concept-text">以笔为炬，以文为桥，</p>
+          <p class="banner-concept-text">让文化之光，永远照亮前行之路。</p>
+        </div>
         <div class="banner-divider">
           <div class="divider-star">★</div>
         </div>
         <h1 class="banner-title">桂林1944·命运应答</h1>
-        <div class="banner-subtitle-box">
-          <h2 class="banner-subtitle">文创产品数字化展示</h2>
-        </div>
-        <p class="banner-motto">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列化文创产品设计</p>
-        <div class="banner-stamp">
-          <span class="stamp-text">桂林</span>
-          <span class="stamp-text">1944</span>
-        </div>
+        <h2 class="banner-subtitle">文创产品数字化展示</h2>
+        <p class="banner-intro">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列化文创产品设计</p>
+        <div class="banner-stamp">桂林1944</div>
       </div>
-      <div class="banner-ribbon"></div>
-      <!-- 装饰元素 -->
-      <div class="banner-decoration top-left"></div>
-      <div class="banner-decoration top-right"></div>
-      <div class="banner-decoration bottom-left"></div>
-      <div class="banner-decoration bottom-right"></div>
     </div>
 
 
@@ -773,10 +764,9 @@ const closeZoom = () => {
   height: 100vh;
   width: 100%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding-bottom: 80px;
 }
 
 .banner-bg {
@@ -789,105 +779,29 @@ const closeZoom = () => {
   object-fit: cover;
 }
 
-/* 概念纸张 */
-.banner-concept-paper {
-  position: absolute;
-  left: 40px;
-  bottom: 200px;
-  max-width: 380px;
+.banner-content {
+  position: relative;
   z-index: 2;
-  background: linear-gradient(135deg, #F5F0E6 0%, #E8E0D0 100%);
-  padding: 25px 30px;
-  border-radius: 3px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transform: rotate(-3deg);
+  text-align: center;
+  color: #fff;
+  padding: 0 20px;
+}
+
+/* 项目理念内容 */
+.banner-concept {
+  max-width: 500px;
+  margin: 0 auto 20px;
+  text-align: left;
 }
 
 .banner-concept-text {
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 0.9rem;
-  color: #8B4513;
+  font-size: 1rem;
+  color: #D4AF37;
   line-height: 1.8;
   margin: 6px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   font-weight: 500;
-}
-
-.banner-content {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  color: #fff;
-  padding: 0 20px;
-  width: 100%;
-}
-
-.banner-title {
-  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 4.5rem;
-  font-weight: bold;
-  color: #8B4513;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-  margin: 0 0 15px 0;
-  letter-spacing: 8px;
-}
-
-.banner-subtitle-box {
-  display: inline-block;
-  background: linear-gradient(135deg, #8B4513 0%, #6B3410 100%);
-  padding: 12px 50px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  position: relative;
-}
-
-.banner-subtitle-box::before,
-.banner-subtitle-box::after {
-  content: '❧';
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #D4AF37;
-  font-size: 1.5rem;
-}
-
-.banner-subtitle-box::before {
-  left: 20px;
-}
-
-.banner-subtitle-box::after {
-  right: 20px;
-}
-
-.banner-subtitle {
-  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 1.6rem;
-  color: #F5F0E6;
-  margin: 0;
-  letter-spacing: 4px;
-}
-
-/* 红色丝带 */
-.banner-ribbon {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 120px;
-  z-index: 2;
-  background: linear-gradient(135deg, #C41E3A 0%, #8B0000 100%);
-  clip-path: polygon(0 30%, 15% 0, 85% 0, 100% 30%, 100% 100%, 0 100%);
-}
-
-.banner-ribbon::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='1' fill='%23FFFFFF' opacity='0.3'/%3E%3C/svg%3E");
-  pointer-events: none;
 }
 
 /* 分隔线 */
@@ -896,93 +810,86 @@ const closeZoom = () => {
   align-items: center;
   justify-content: center;
   margin: 20px auto;
-  max-width: 400px;
+  max-width: 300px;
 }
 
 .banner-divider::before,
 .banner-divider::after {
   content: '';
   flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
-  margin: 0 20px;
+  height: 2px;
+  background: #D4AF37;
+  margin: 0 15px;
 }
 
 .divider-star {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #D4AF37;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-/* 主标语 */
-.banner-motto {
-  font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
-  font-size: 0.95rem;
+.banner-title {
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 4rem;
+  font-weight: bold;
+  color: #8B4513;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin: 20px 0;
+}
+
+.banner-subtitle {
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 1.8rem;
   color: #F5F0E6;
-  line-height: 1.4;
-  max-width: 700px;
-  margin: 20px auto 30px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  font-style: italic;
+  background: linear-gradient(90deg, rgba(139, 69, 19, 0.9), rgba(107, 52, 16, 0.9), rgba(139, 69, 19, 0.9));
+  padding: 10px 30px;
+  display: inline-block;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.banner-subtitle::before,
+.banner-subtitle::after {
+  content: '◆';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #D4AF37;
+  font-size: 0.8rem;
+}
+
+.banner-subtitle::before {
+  left: 10px;
+}
+
+.banner-subtitle::after {
+  right: 10px;
+}
+
+.banner-intro {
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 1.1rem;
+  color: #8B4513;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 20px;
 }
 
 /* 印章 */
 .banner-stamp {
-  display: inline-flex;
-  flex-direction: column;
+  display: inline-block;
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  color: #C41E3A;
+  font-size: 1.2rem;
+  color: #D4AF37;
   font-weight: bold;
-  padding: 15px 12px;
-  border: 3px solid #C41E3A;
-  border-radius: 8px;
-  margin-top: 15px;
-  letter-spacing: 4px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  transform: rotate(5deg);
-}
-
-.stamp-text {
-  font-size: 1.3rem;
-  line-height: 1.4;
-}
-
-/* Banner装饰元素 */
-.banner-decoration {
-  position: absolute;
-  z-index: 2;
-  width: 100px;
-  height: 100px;
-  border: 3px solid rgba(212, 175, 55, 0.5);
-}
-
-.banner-decoration.top-left {
-  top: 30px;
-  left: 30px;
-  border-right: none;
-  border-bottom: none;
-}
-
-.banner-decoration.top-right {
-  top: 30px;
-  right: 30px;
-  border-left: none;
-  border-bottom: none;
-}
-
-.banner-decoration.bottom-left {
-  bottom: 30px;
-  left: 30px;
-  border-right: none;
-  border-top: none;
-}
-
-.banner-decoration.bottom-right {
-  bottom: 30px;
-  right: 30px;
-  border-left: none;
-  border-top: none;
+  padding: 8px 16px;
+  border: 2px solid #D4AF37;
+  border-radius: 4px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  margin-top: 10px;
+  letter-spacing: 2px;
+  background: rgba(139, 69, 19, 0.3);
 }
 
 /* 响应式设计 */
@@ -990,141 +897,81 @@ const closeZoom = () => {
   .banner {
     height: auto;
     min-height: 100vh;
-    padding: 60px 15px 100px 15px;
-    align-items: flex-end;
+    padding: 60px 20px;
   }
-
-  .banner-concept-paper {
-    position: relative;
-    left: auto;
-    bottom: auto;
+  
+  .banner-concept {
     max-width: 100%;
-    margin-bottom: 30px;
-    transform: rotate(-2deg);
-    padding: 20px;
+    margin-bottom: 20px;
   }
-
+  
   .banner-concept-text {
-    font-size: 0.85rem;
-    margin: 5px 0;
+    font-size: 0.9rem;
+    margin: 6px 0;
   }
-
+  
+  .banner-divider {
+    max-width: 250px;
+    margin: 15px auto;
+  }
+  
+  .banner-divider::before,
+  .banner-divider::after {
+    margin: 0 15px;
+  }
+  
   .banner-title {
     font-size: 2.8rem;
-    margin-bottom: 15px;
-    letter-spacing: 4px;
+    margin: 15px 0;
   }
-
-  .banner-subtitle-box {
-    padding: 10px 40px;
-    margin-bottom: 15px;
-  }
-
-  .banner-subtitle-box::before,
-  .banner-subtitle-box::after {
-    font-size: 1.2rem;
-  }
-
+  
   .banner-subtitle {
-    font-size: 1.2rem;
-    letter-spacing: 2px;
+    font-size: 1.4rem;
+    padding: 8px 25px;
+    margin-bottom: 15px;
   }
-
-  .banner-motto {
-    font-size: 0.85rem;
-    margin: 15px auto 15px;
+  
+  .banner-intro {
+    font-size: 1rem;
+    margin-bottom: 15px;
   }
-
+  
   .banner-stamp {
-    padding: 12px 10px;
-    margin-top: 10px;
-  }
-
-  .stamp-text {
-    font-size: 1.1rem;
-  }
-
-  .banner-ribbon {
-    height: 80px;
-  }
-
-  .banner-decoration {
-    width: 60px;
-    height: 60px;
-  }
-
-  .banner-decoration.top-left,
-  .banner-decoration.top-right {
-    top: 20px;
-  }
-
-  .banner-decoration.bottom-left,
-  .banner-decoration.bottom-right {
-    bottom: 80px;
-  }
-
-  .banner-decoration.top-left,
-  .banner-decoration.bottom-left {
-    left: 20px;
-  }
-
-  .banner-decoration.top-right,
-  .banner-decoration.bottom-right {
-    right: 20px;
+    font-size: 1rem;
+    padding: 6px 12px;
   }
 }
 
 @media (max-width: 480px) {
   .banner {
-    padding: 40px 10px 90px 10px;
+    padding: 40px 15px;
   }
-
+  
+  .banner-concept {
+    max-width: 100%;
+  }
+  
+  .banner-concept-text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  
   .banner-title {
     font-size: 2.2rem;
-    letter-spacing: 2px;
   }
-
-  .banner-subtitle-box {
-    padding: 8px 30px;
-  }
-
+  
   .banner-subtitle {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    padding: 6px 20px;
   }
-
-  .banner-concept-paper {
-    padding: 15px;
-    margin-bottom: 20px;
+  
+  .banner-intro {
+    font-size: 0.95rem;
   }
-
-  .banner-concept-text {
-    font-size: 0.8rem;
-  }
-
-  .banner-decoration {
-    width: 50px;
-    height: 50px;
-    border-width: 2px;
-  }
-
-  .banner-decoration.top-left,
-  .banner-decoration.top-right {
-    top: 15px;
-  }
-
-  .banner-decoration.bottom-left,
-  .banner-decoration.bottom-right {
-    bottom: 70px;
-  }
-
-  .banner-decoration.top-left,
-  .banner-decoration.bottom-left {
-    left: 15px;
-  }
-
-  .banner-decoration.top-right,
-  .banner-decoration.bottom-right {
-    right: 15px;
+  
+  .banner-stamp {
+    font-size: 0.9rem;
+    padding: 5px 10px;
   }
 }
 
