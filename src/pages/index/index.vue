@@ -774,52 +774,50 @@ const closeZoom = () => {
   z-index: 2;
   text-align: center;
   color: #fff;
-  padding: 0 20px;
+  padding: 100px 20px 0;
 }
-
-
 
 /* 分隔线 */
 .banner-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px auto;
-  max-width: 300px;
+  margin: 30px auto;
+  max-width: 350px;
 }
 
 .banner-divider::before,
 .banner-divider::after {
   content: '';
   flex: 1;
-  height: 2px;
-  background: #D4AF37;
+  height: 3px;
+  background: #C41E3A;
   margin: 0 15px;
 }
 
 .divider-star {
-  font-size: 1.5rem;
-  color: #D4AF37;
+  font-size: 2rem;
+  color: #C41E3A;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .banner-title {
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: bold;
-  color: #8B4513;
+  color: #C41E3A;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  margin: 20px 0;
+  margin: 30px 0;
 }
 
 .banner-subtitle {
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   color: #F5F0E6;
-  background: linear-gradient(90deg, rgba(139, 69, 19, 0.9), rgba(107, 52, 16, 0.9), rgba(139, 69, 19, 0.9));
-  padding: 10px 30px;
+  background: linear-gradient(90deg, rgba(196, 30, 58, 0.9), rgba(160, 20, 40, 0.9), rgba(196, 30, 58, 0.9));
+  padding: 12px 35px;
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   border-radius: 4px;
   position: relative;
 }
@@ -830,41 +828,41 @@ const closeZoom = () => {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: #D4AF37;
-  font-size: 0.8rem;
+  color: #FFD700;
+  font-size: 1rem;
 }
 
 .banner-subtitle::before {
-  left: 10px;
+  left: 15px;
 }
 
 .banner-subtitle::after {
-  right: 10px;
+  right: 15px;
 }
 
 .banner-intro {
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 1.1rem;
-  color: #8B4513;
-  line-height: 1.6;
-  max-width: 600px;
-  margin: 0 auto 20px;
+  font-size: 1.3rem;
+  color: #C41E3A;
+  line-height: 1.8;
+  max-width: 650px;
+  margin: 0 auto 25px;
 }
 
 /* 印章 */
 .banner-stamp {
   display: inline-block;
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 1.2rem;
-  color: #D4AF37;
+  font-size: 1.5rem;
+  color: #C41E3A;
   font-weight: bold;
-  padding: 8px 16px;
-  border: 2px solid #D4AF37;
+  padding: 10px 20px;
+  border: 3px solid #C41E3A;
   border-radius: 4px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  margin-top: 10px;
+  margin-top: 15px;
   letter-spacing: 2px;
-  background: rgba(139, 69, 19, 0.3);
+  background: rgba(255, 215, 0, 0.2);
 }
 
 /* 响应式设计 */
@@ -875,9 +873,13 @@ const closeZoom = () => {
     padding: 60px 20px;
   }
   
+  .banner-content {
+    padding: 60px 20px 0;
+  }
+  
   .banner-divider {
-    max-width: 250px;
-    margin: 15px auto;
+    max-width: 300px;
+    margin: 25px auto;
   }
   
   .banner-divider::before,
@@ -885,25 +887,30 @@ const closeZoom = () => {
     margin: 0 15px;
   }
   
+  .divider-star {
+    font-size: 1.6rem;
+  }
+  
   .banner-title {
-    font-size: 2.8rem;
-    margin: 15px 0;
+    font-size: 3.5rem;
+    margin: 25px 0;
   }
   
   .banner-subtitle {
-    font-size: 1.4rem;
-    padding: 8px 25px;
-    margin-bottom: 15px;
+    font-size: 1.8rem;
+    padding: 10px 30px;
+    margin-bottom: 20px;
   }
   
   .banner-intro {
-    font-size: 1rem;
-    margin-bottom: 15px;
+    font-size: 1.15rem;
+    margin-bottom: 20px;
   }
   
   .banner-stamp {
-    font-size: 1rem;
-    padding: 6px 12px;
+    font-size: 1.25rem;
+    padding: 8px 16px;
+    border-width: 2.5px;
   }
 }
 
@@ -912,22 +919,35 @@ const closeZoom = () => {
     padding: 40px 15px;
   }
   
+  .banner-content {
+    padding: 40px 15px 0;
+  }
+  
+  .banner-divider {
+    max-width: 250px;
+    margin: 20px auto;
+  }
+  
+  .divider-star {
+    font-size: 1.4rem;
+  }
+  
   .banner-title {
-    font-size: 2.2rem;
+    font-size: 2.8rem;
   }
   
   .banner-subtitle {
-    font-size: 1.2rem;
-    padding: 6px 20px;
+    font-size: 1.5rem;
+    padding: 8px 25px;
   }
   
   .banner-intro {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
   }
   
   .banner-stamp {
-    font-size: 0.9rem;
-    padding: 5px 10px;
+    font-size: 1.1rem;
+    padding: 7px 14px;
   }
 }
 
