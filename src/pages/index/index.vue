@@ -754,9 +754,10 @@ const closeZoom = () => {
   height: 100vh;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   overflow: hidden;
+  padding-bottom: 80px;
 }
 
 .banner-bg {
@@ -766,7 +767,8 @@ const closeZoom = () => {
   width: 100%;
   height: 100%;
   z-index: 1;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .banner-content {
@@ -775,6 +777,7 @@ const closeZoom = () => {
   text-align: center;
   color: #fff;
   padding: 0 20px;
+  margin-top: auto;
 }
 
 /* 分隔线 */
@@ -870,7 +873,8 @@ const closeZoom = () => {
   .banner {
     height: auto;
     min-height: 100vh;
-    padding: 60px 20px;
+    padding: 40px 20px 60px;
+    align-items: flex-end;
   }
   
   .banner-divider {
@@ -916,7 +920,7 @@ const closeZoom = () => {
 
 @media (max-width: 480px) {
   .banner {
-    padding: 40px 15px;
+    padding: 30px 15px 50px;
   }
   
   .banner-divider {
