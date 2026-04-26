@@ -43,14 +43,6 @@
           <div v-if="selectedMainCategory !== -1">
             <!-- 产品轮播区域 -->
             <div class="product-carousel">
-              <!-- 轮播控制按钮 -->
-              <button class="carousel-btn carousel-btn-left" @click="prevProduct" :disabled="currentProductIndex === 0">
-                &lt;
-              </button>
-              <button class="carousel-btn carousel-btn-right" @click="nextProduct" :disabled="currentProductIndex === mainCategories[selectedMainCategory].subCategories.length - 1">
-                &gt;
-              </button>
-              
               <!-- 轮播内容 -->
               <div 
                 class="carousel-container" 
@@ -82,7 +74,15 @@
                       </div>
                       <h3 class="sub-category-name">{{ subCategory.name }}</h3>
                       <p class="sub-category-description">{{ subCategory.description }}</p>
-                      <button class="view-details-btn" @click="selectProduct(subCategory)">查看详情</button>
+                      <div class="carousel-controls">
+                        <button class="carousel-btn carousel-btn-left" @click="prevProduct" :disabled="currentProductIndex === 0">
+                          &lt;
+                        </button>
+                        <button class="view-details-btn" @click="selectProduct(subCategory)">查看详情</button>
+                        <button class="carousel-btn carousel-btn-right" @click="nextProduct" :disabled="currentProductIndex === mainCategories[selectedMainCategory].subCategories.length - 1">
+                          &gt;
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1337,49 +1337,47 @@ const closeZoom = () => {
   box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
 }
 
+/* 轮播控制容器 */
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
 /* 轮播控制按钮 */
 .carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
   border: 1px solid #D4AF37;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 1.5rem;
-  color: #8B4513;
+  border-radius: 25px;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  z-index: 10;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
 }
 
 .carousel-btn:hover {
-  background: #D4AF37;
-  color: white;
-  transform: translateY(-50%) scale(1.1);
-}
-
-.carousel-btn-left {
-  left: 10px;
-}
-
-.carousel-btn-right {
-  right: 10px;
+  background: #B8860B;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
 }
 
 .carousel-btn:disabled {
-  opacity: 0.3;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .carousel-btn:disabled:hover {
-  background: rgba(255, 255, 255, 0.9);
-  color: #8B4513;
-  transform: translateY(-50%);
+  background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+  transform: none;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
 }
 
 /* 导航指示器 */
