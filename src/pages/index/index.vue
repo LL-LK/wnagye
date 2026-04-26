@@ -11,8 +11,6 @@
         </div>
         <div class="banner-stamp">桂林1944</div>
       </div>
-      <!-- 红布装饰 -->
-      <div class="banner-red-cloth"></div>
       <!-- 装饰元素 -->
       <div class="banner-decoration top-left"></div>
       <div class="banner-decoration top-right"></div>
@@ -762,7 +760,7 @@ const closeZoom = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .banner-bg {
@@ -877,32 +875,6 @@ const closeZoom = () => {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   margin-top: 10px;
   letter-spacing: 2px;
-}
-
-/* 红布装饰 */
-.banner-red-cloth {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 150px;
-  background: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #8B0000 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 80% 80%, 60% 100%, 40% 70%, 20% 90%, 0 70%);
-  z-index: 3;
-  box-shadow: 0 -5px 20px rgba(139, 0, 0, 0.5);
-  opacity: 0.9;
-  background-image: 
-    linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
-  background-size: 20px 20px;
-  animation: clothWave 6s ease-in-out infinite;
-}
-
-@keyframes clothWave {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-10px) rotate(1deg); }
-  50% { transform: translateY(0) rotate(0deg); }
-  75% { transform: translateY(-5px) rotate(-1deg); }
 }
 
 /* Banner装饰元素 */
@@ -1106,6 +1078,7 @@ const closeZoom = () => {
 
 .category-container {
   display: flex;
+  flex-direction: column;
   max-width: 1400px;
   margin: 0 auto;
   min-height: 600px;
@@ -1117,20 +1090,29 @@ const closeZoom = () => {
 
 /* 侧边导航栏 */
 .sidebar {
-  width: 200px;
+  width: 100%;
   background: linear-gradient(180deg, #8B4513 0%, #6B3410 100%);
   padding: 20px 0;
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .sidebar-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 15px;
+  padding: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  width: 120px;
+  min-height: 140px;
+  justify-content: center;
 }
 
 .sidebar-item:hover,
@@ -1140,11 +1122,11 @@ const closeZoom = () => {
 
 .sidebar-image {
   width: 100%;
-  max-width: 160px;
-  height: 100px;
+  max-width: 80px;
+  height: 60px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
   border: none;
   background: transparent;
   display: block;
@@ -1153,10 +1135,12 @@ const closeZoom = () => {
 
 .sidebar-name {
   font-family: '思源黑体', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   color: #F5F0E6;
   text-align: center;
+  line-height: 1.2;
+  word-wrap: break-word;
 }
 
 /* 主内容区域 */
@@ -1164,6 +1148,10 @@ const closeZoom = () => {
   flex: 1;
   padding: 40px;
   background: linear-gradient(135deg, #F5F0E6 0%, #fff 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .welcome-content {
