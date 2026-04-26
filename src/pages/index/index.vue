@@ -1083,7 +1083,7 @@ const closeZoom = () => {
   margin: 0 auto;
   min-height: 600px;
   background: rgba(255, 255, 255, 0.8);
-  border-radius: 15px;
+  border-radius: 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
@@ -1129,7 +1129,7 @@ const closeZoom = () => {
   cursor: pointer;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 12px;
   min-width: 100px;
   max-width: 120px;
   flex: 1;
@@ -1250,7 +1250,7 @@ const closeZoom = () => {
   align-items: center;
   text-align: center;
   background: #f9f5f0;
-  border-radius: 15px;
+  border-radius: 20px;
   padding: 30px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
@@ -1261,7 +1261,7 @@ const closeZoom = () => {
   height: 300px;
   background: #f0ebe0;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-bottom: 20px;
 }
 
@@ -1509,7 +1509,7 @@ const closeZoom = () => {
 
 .detail-content {
   background-color: #F5F0E6;
-  border-radius: 15px;
+  border-radius: 20px;
   padding: 40px;
   max-width: 900px;
   width: 100%;
@@ -1725,7 +1725,7 @@ const closeZoom = () => {
   width: 45%;
   background: linear-gradient(135deg, #fff 0%, #F5F0E6 100%);
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 18px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   border: 1px solid rgba(212, 175, 55, 0.3);
