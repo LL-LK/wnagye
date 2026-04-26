@@ -754,10 +754,9 @@ const closeZoom = () => {
   height: 100vh;
   width: 100%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding-bottom: 80px;
 }
 
 .banner-bg {
@@ -767,8 +766,7 @@ const closeZoom = () => {
   width: 100%;
   height: 100%;
   z-index: 1;
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
 }
 
 .banner-content {
@@ -777,16 +775,17 @@ const closeZoom = () => {
   text-align: center;
   color: #fff;
   padding: 0 20px;
-  margin-top: auto;
 }
+
+
 
 /* 分隔线 */
 .banner-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 30px auto;
-  max-width: 350px;
+  margin: 20px auto;
+  max-width: 300px;
 }
 
 .banner-divider::before,
@@ -799,28 +798,28 @@ const closeZoom = () => {
 }
 
 .divider-star {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: #D4AF37;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .banner-title {
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 4.5rem;
+  font-size: 4rem;
   font-weight: bold;
   color: #8B4513;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  margin: 25px 0;
+  margin: 20px 0;
 }
 
 .banner-subtitle {
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #F5F0E6;
-  background: linear-gradient(90deg, rgba(139, 69, 19, 0.95), rgba(107, 52, 16, 0.95), rgba(139, 69, 19, 0.95));
-  padding: 12px 35px;
+  background: linear-gradient(90deg, rgba(139, 69, 19, 0.9), rgba(107, 52, 16, 0.9), rgba(139, 69, 19, 0.9));
+  padding: 10px 30px;
   display: inline-block;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   border-radius: 4px;
   position: relative;
 }
@@ -832,38 +831,38 @@ const closeZoom = () => {
   top: 50%;
   transform: translateY(-50%);
   color: #D4AF37;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .banner-subtitle::before {
-  left: 12px;
+  left: 10px;
 }
 
 .banner-subtitle::after {
-  right: 12px;
+  right: 10px;
 }
 
 .banner-intro {
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #8B4513;
-  line-height: 1.7;
-  max-width: 650px;
-  margin: 0 auto 25px;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 20px;
 }
 
 /* 印章 */
 .banner-stamp {
   display: inline-block;
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #D4AF37;
   font-weight: bold;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border: 2px solid #D4AF37;
   border-radius: 4px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  margin-top: 15px;
+  margin-top: 10px;
   letter-spacing: 2px;
   background: rgba(139, 69, 19, 0.3);
 }
@@ -873,54 +872,7 @@ const closeZoom = () => {
   .banner {
     height: auto;
     min-height: 100vh;
-    padding: 40px 20px 60px;
-    align-items: flex-end;
-  }
-  
-  .banner-divider {
-    max-width: 280px;
-    margin: 20px auto;
-  }
-  
-  .banner-divider::before,
-  .banner-divider::after {
-    margin: 0 15px;
-  }
-  
-  .divider-star {
-    font-size: 1.5rem;
-  }
-  
-  .banner-title {
-    font-size: 3.2rem;
-    margin: 20px 0;
-  }
-  
-  .banner-subtitle {
-    font-size: 1.6rem;
-    padding: 10px 30px;
-    margin-bottom: 20px;
-  }
-  
-  .banner-subtitle::before,
-  .banner-subtitle::after {
-    font-size: 0.8rem;
-  }
-  
-  .banner-intro {
-    font-size: 1.15rem;
-    margin-bottom: 20px;
-  }
-  
-  .banner-stamp {
-    font-size: 1.15rem;
-    padding: 8px 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .banner {
-    padding: 30px 15px 50px;
+    padding: 60px 20px;
   }
   
   .banner-divider {
@@ -928,26 +880,54 @@ const closeZoom = () => {
     margin: 15px auto;
   }
   
-  .divider-star {
-    font-size: 1.3rem;
+  .banner-divider::before,
+  .banner-divider::after {
+    margin: 0 15px;
   }
   
   .banner-title {
-    font-size: 2.6rem;
+    font-size: 2.8rem;
+    margin: 15px 0;
   }
   
   .banner-subtitle {
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     padding: 8px 25px;
+    margin-bottom: 15px;
   }
   
   .banner-intro {
-    font-size: 1.05rem;
+    font-size: 1rem;
+    margin-bottom: 15px;
   }
   
   .banner-stamp {
     font-size: 1rem;
-    padding: 6px 14px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    padding: 40px 15px;
+  }
+  
+  .banner-title {
+    font-size: 2.2rem;
+  }
+  
+  .banner-subtitle {
+    font-size: 1.2rem;
+    padding: 6px 20px;
+  }
+  
+  .banner-intro {
+    font-size: 0.95rem;
+  }
+  
+  .banner-stamp {
+    font-size: 0.9rem;
+    padding: 5px 10px;
   }
 }
 
