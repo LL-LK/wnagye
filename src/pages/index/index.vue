@@ -73,8 +73,10 @@
             </div>
           </div>
           <div v-else class="welcome-content">
-            <p class="welcome-text">请从左侧选择产品类型</p>
-            <img src="/image/1.webp" class="welcome-image" alt="欢迎图片" />
+            <p class="welcome-text">请点击选择产品类型</p>
+            <div class="welcome-image-container">
+              <img src="/image/2.webp" class="welcome-image" alt="欢迎图片" />
+            </div>
           </div>
         </div>
       </div>
@@ -674,14 +676,13 @@ const closeZoom = () => {
 
 .banner-bg {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
   filter: brightness(0.7);
   object-fit: cover;
-  transform: translate(-50%, -50%);
 }
 
 .banner-content {
@@ -1055,20 +1056,32 @@ const closeZoom = () => {
   justify-content: center;
   height: 100%;
   min-height: 400px;
+  padding: 20px;
 }
 
 .welcome-text {
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
   font-size: 1.5rem;
   color: #8B4513;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.welcome-image-container {
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  background: #f0ebe0;
 }
 
 .welcome-image {
-  width: 300px;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* 子分类网格 */
