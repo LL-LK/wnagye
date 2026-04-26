@@ -50,26 +50,69 @@
 
         <!-- 主分类内容区域 -->
         <div class="main-content">
-          <div v-if="selectedMainCategory !== -1" class="sub-category-grid" :class="{ 'fade-in': !transitioning }">
-            <div
-              v-for="(subCategory, index) in mainCategories[selectedMainCategory].subCategories"
-              :key="`${selectedMainCategory}-${index}`"
-              class="sub-category-item"
-              @click="selectProduct(subCategory)"
-            >
-              <div class="image-wrapper">
-                <div class="image-placeholder" :class="{ hidden: isImageLoaded(subCategory.image) }"></div>
-                <img
-                  :src="subCategory.image"
-                  class="sub-category-image"
-                  :class="{ loaded: isImageLoaded(subCategory.image) }"
-                  loading="lazy"
-                  :alt="subCategory.name"
-                  @load="onImageLoaded(subCategory.image)"
-                />
+          <div v-if="selectedMainCategory !== -1">
+            <!-- 产品轮播区域 -->
+            <div class="product-carousel">
+              <!-- 轮播控制按钮 -->
+              <button class="carousel-btn carousel-btn-left" @click="prevProduct" :disabled="currentProductIndex === 0">
+                &lt;
+              </button>
+              <button class="carousel-btn carousel-btn-right" @click="nextProduct" :disabled="currentProductIndex === mainCategories[selectedMainCategory].subCategories.length - 1">
+                &gt;
+              </button>
+              
+              <!-- 轮播内容 -->
+              <div 
+                class="carousel-container" 
+                @touchstart="touchStart" 
+                @touchmove="touchMove" 
+                @touchend="touchEnd"
+              >
+                <div 
+                  class="carousel-slide" 
+                  :class="{ 'transition': isSliding }"
+                  :style="{ transform: `translateX(-${currentProductIndex * 100}%)` }"
+                >
+                  <div
+                    v-for="(subCategory, index) in mainCategories[selectedMainCategory].subCategories"
+                    :key="`${selectedMainCategory}-${index}`"
+                    class="carousel-item"
+                  >
+                    <div class="carousel-item-content">
+                      <div class="image-wrapper">
+                        <div class="image-placeholder" :class="{ hidden: isImageLoaded(subCategory.image) }"></div>
+                        <img
+                          :src="subCategory.image"
+                          class="sub-category-image"
+                          :class="{ loaded: isImageLoaded(subCategory.image) }"
+                          loading="lazy"
+                          :alt="subCategory.name"
+                          @load="onImageLoaded(subCategory.image)"
+                        />
+                      </div>
+                      <h3 class="sub-category-name">{{ subCategory.name }}</h3>
+                      <p class="sub-category-description">{{ subCategory.description }}</p>
+                      <button class="view-details-btn" @click="selectProduct(subCategory)">查看详情</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 class="sub-category-name">{{ subCategory.name }}</h3>
-              <p class="sub-category-description">{{ subCategory.description }}</p>
+              
+              <!-- 导航指示器 -->
+              <div class="carousel-indicators">
+                <div 
+                  v-for="(_, index) in mainCategories[selectedMainCategory].subCategories" 
+                  :key="index"
+                  class="indicator"
+                  :class="{ active: index === currentProductIndex }"
+                  @click="goToProduct(index)"
+                ></div>
+              </div>
+              
+              <!-- 页码信息 -->
+              <div class="carousel-pagination">
+                {{ currentProductIndex + 1 }} / {{ mainCategories[selectedMainCategory].subCategories.length }}
+              </div>
             </div>
           </div>
           <div v-else class="welcome-content">
@@ -154,6 +197,12 @@ const selectedProduct = shallowRef<any>(null)
 const isZooming = ref(false)
 const loadedImages = ref<Set<string>>(new Set())
 const transitioning = ref(false)
+
+// 轮播相关变量
+const currentProductIndex = ref(0)
+const isSliding = ref(false)
+const touchStartX = ref(0)
+const touchEndX = ref(0)
 
 const onImageLoaded = (src: string) => {
   loadedImages.value.add(src)
@@ -604,6 +653,8 @@ const selectMainCategory = (index: number) => {
   if (selectedMainCategory.value === index) return
   transitioning.value = true
   selectedMainCategory.value = index
+  // 重置轮播索引
+  currentProductIndex.value = 0
   prefetchCategoryImages(index)
   nextTick(() => {
     setTimeout(() => { transitioning.value = false }, 50)
@@ -620,6 +671,54 @@ const prefetchCategoryImages = (index: number) => {
     link.href = sub.image
     document.head.appendChild(link)
   })
+}
+
+// 轮播方法
+const prevProduct = () => {
+  if (currentProductIndex.value > 0) {
+    currentProductIndex.value--
+    isSliding.value = true
+    setTimeout(() => { isSliding.value = false }, 300)
+  }
+}
+
+const nextProduct = () => {
+  if (selectedMainCategory.value !== -1) {
+    const subCategories = mainCategories[selectedMainCategory.value].subCategories
+    if (currentProductIndex.value < subCategories.length - 1) {
+      currentProductIndex.value++
+      isSliding.value = true
+      setTimeout(() => { isSliding.value = false }, 300)
+    }
+  }
+}
+
+const goToProduct = (index: number) => {
+  currentProductIndex.value = index
+  isSliding.value = true
+  setTimeout(() => { isSliding.value = false }, 300)
+}
+
+// 触摸事件处理
+const touchStart = (e: TouchEvent) => {
+  touchStartX.value = e.changedTouches[0].screenX
+}
+
+const touchMove = (e: TouchEvent) => {
+  touchEndX.value = e.changedTouches[0].screenX
+}
+
+const touchEnd = () => {
+  const threshold = 50
+  if (touchEndX.value < touchStartX.value - threshold) {
+    // 向左滑动
+    nextProduct()
+  } else if (touchEndX.value > touchStartX.value + threshold) {
+    // 向右滑动
+    prevProduct()
+  }
+  touchStartX.value = 0
+  touchEndX.value = 0
 }
 
 onMounted(() => {
@@ -1085,26 +1184,56 @@ const closeZoom = () => {
   background: #f0ebe0;
 }
 
-/* 子分类网格 */
-.sub-category-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  justify-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+/* 产品轮播 */
+.product-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
-.sub-category-grid.fade-in {
-  opacity: 1;
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-x;
+}
+
+.carousel-slide {
+  display: flex;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.carousel-slide.transition {
+  transition: transform 0.3s ease;
+}
+
+.carousel-item {
+  flex: 0 0 100%;
+  padding: 20px;
+}
+
+.carousel-item-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #f9f5f0;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .image-wrapper {
   position: relative;
   width: 100%;
-  height: 240px;
+  height: 300px;
   background: #f0ebe0;
   overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .image-placeholder {
@@ -1117,6 +1246,7 @@ const closeZoom = () => {
   background-size: 200% 200%;
   animation: shimmer 1.5s ease-in-out infinite;
   transition: opacity 0.3s ease;
+  border-radius: 10px;
 }
 
 .image-placeholder.hidden {
@@ -1131,50 +1261,202 @@ const closeZoom = () => {
 
 .sub-category-image {
   width: 100%;
-  height: 240px;
+  height: 300px;
   object-fit: contain;
   background: #fff;
   opacity: 0;
   transition: opacity 0.4s ease;
+  border-radius: 10px;
 }
 
 .sub-category-image.loaded {
   opacity: 1;
 }
 
-.sub-category-item {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(139, 69, 19, 0.1);
-  width: 100%;
-  max-width: 280px;
-}
-
-.sub-category-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  border-color: #D4AF37;
-}
-
 .sub-category-name {
-  font-family: '思源黑体', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
-  font-size: 1.1rem;
-  font-weight: bold;
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 1.5rem;
   color: #8B4513;
-  padding: 15px 15px 5px;
-  display: block;
+  margin: 20px 0 15px;
+  font-weight: bold;
 }
 
 .sub-category-description {
-  font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
-  font-size: 0.85rem;
-  color: #000080;
-  padding: 0 15px 15px;
-  line-height: 1.4;
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 1rem;
+  color: #6B4226;
+  margin: 0 0 20px;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+.view-details-btn {
+  background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.view-details-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* 轮播控制按钮 */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #D4AF37;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  color: #8B4513;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.carousel-btn:hover {
+  background: #D4AF37;
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn-left {
+  left: 10px;
+}
+
+.carousel-btn-right {
+  right: 10px;
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel-btn:disabled:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: #8B4513;
+  transform: translateY(-50%);
+}
+
+/* 导航指示器 */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e8e0d0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: #D4AF37;
+  transform: scale(1.2);
+}
+
+.indicator:hover {
+  background: #B8860B;
+}
+
+/* 页码信息 */
+.carousel-pagination {
+  text-align: center;
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 1rem;
+  color: #8B4513;
+  margin-top: 10px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .carousel-item-content {
+    padding: 20px;
+  }
+  
+  .image-wrapper {
+    height: 250px;
+  }
+  
+  .sub-category-image {
+    height: 250px;
+  }
+  
+  .sub-category-name {
+    font-size: 1.3rem;
+  }
+  
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    padding: 10px;
+  }
+  
+  .carousel-item-content {
+    padding: 15px;
+  }
+  
+  .image-wrapper {
+    height: 200px;
+  }
+  
+  .sub-category-image {
+    height: 200px;
+  }
+  
+  .sub-category-name {
+    font-size: 1.1rem;
+  }
+  
+  .sub-category-description {
+    font-size: 0.9rem;
+  }
+  
+  .view-details-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .carousel-indicators {
+    gap: 8px;
+  }
+  
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
 }
 
 /* 单个产品详情展示区域 */
