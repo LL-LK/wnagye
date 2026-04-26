@@ -1092,27 +1092,50 @@ const closeZoom = () => {
 .sidebar {
   width: 100%;
   background: linear-gradient(180deg, #8B4513 0%, #6B3410 100%);
-  padding: 20px 0;
+  padding: 20px;
   flex-shrink: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.2);
+}
+
+.sidebar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .sidebar-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px;
+  padding: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  width: 120px;
-  min-height: 140px;
+  min-width: 100px;
+  max-width: 120px;
+  flex: 1;
+  min-height: 120px;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .sidebar-item:hover,
@@ -1122,11 +1145,11 @@ const closeZoom = () => {
 
 .sidebar-image {
   width: 100%;
-  max-width: 80px;
-  height: 60px;
+  max-width: 70px;
+  height: 50px;
   object-fit: cover;
   border-radius: 6px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   border: none;
   background: transparent;
   display: block;
