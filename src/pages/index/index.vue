@@ -1055,7 +1055,7 @@ const closeZoom = () => {
   align-items: center;
   justify-content: center;
   height: 100%;
-  min-height: 400px;
+  min-height: 500px;
   padding: 20px;
 }
 
@@ -1069,8 +1069,8 @@ const closeZoom = () => {
 
 .welcome-image-container {
   width: 100%;
-  max-width: 600px;
-  height: 300px;
+  max-width: 800px;
+  height: 400px;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
