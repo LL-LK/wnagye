@@ -6,7 +6,6 @@
       <div class="banner-content">
         <h1 class="banner-title">桂林1944·命运应答</h1>
         <h2 class="banner-subtitle">文创产品数字化展示</h2>
-        <p class="banner-intro">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列文化产品设计</p>
         <div class="banner-divider">
           <div class="divider-star">★</div>
         </div>
