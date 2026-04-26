@@ -11,6 +11,8 @@
         </div>
         <div class="banner-stamp">桂林1944</div>
       </div>
+      <!-- 红布装饰 -->
+      <div class="banner-red-cloth"></div>
       <!-- 装饰元素 -->
       <div class="banner-decoration top-left"></div>
       <div class="banner-decoration top-right"></div>
@@ -875,6 +877,32 @@ const closeZoom = () => {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   margin-top: 10px;
   letter-spacing: 2px;
+}
+
+/* 红布装饰 */
+.banner-red-cloth {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #8B0000 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 80% 80%, 60% 100%, 40% 70%, 20% 90%, 0 70%);
+  z-index: 1;
+  box-shadow: 0 -5px 20px rgba(139, 0, 0, 0.5);
+  opacity: 0.9;
+  background-image: 
+    linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+  background-size: 20px 20px;
+  animation: clothWave 6s ease-in-out infinite;
+}
+
+@keyframes clothWave {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(1deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(-5px) rotate(-1deg); }
 }
 
 /* Banner装饰元素 */
