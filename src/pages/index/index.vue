@@ -888,7 +888,7 @@ const closeZoom = () => {
   height: 150px;
   background: linear-gradient(135deg, #8B0000 0%, #B22222 50%, #8B0000 100%);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 80% 80%, 60% 100%, 40% 70%, 20% 90%, 0 70%);
-  z-index: 1;
+  z-index: 3;
   box-shadow: 0 -5px 20px rgba(139, 0, 0, 0.5);
   opacity: 0.9;
   background-image: 
