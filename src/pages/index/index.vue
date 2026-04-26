@@ -10,7 +10,6 @@
         <div class="banner-divider">
           <div class="divider-star">★</div>
         </div>
-        <p class="banner-motto">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列文化产品设计</p>
         <div class="banner-stamp">桂林1944</div>
       </div>
       <!-- 装饰元素 -->
