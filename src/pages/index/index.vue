@@ -180,7 +180,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, shallowRef, onMounted, nextTick, watch } from 'vue'
+import { ref, shallowRef, onMounted, nextTick } from 'vue'
 
 const selectedMainCategory = ref(-1)
 const selectedProduct = shallowRef<any>(null)
@@ -691,10 +691,12 @@ const goToProduct = (index: number) => {
 
 // 触摸事件处理
 const touchStart = (e: TouchEvent) => {
+  if (!e.changedTouches || !e.changedTouches[0]) return
   touchStartX.value = e.changedTouches[0].screenX
 }
 
 const touchMove = (e: TouchEvent) => {
+  if (!e.changedTouches || !e.changedTouches[0]) return
   touchEndX.value = e.changedTouches[0].screenX
 }
 
