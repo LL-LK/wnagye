@@ -2,7 +2,7 @@
   <div class="container">
     <!-- 首页头图Banner区域 -->
     <div class="banner">
-      <img class="banner-bg" src="/image/1.webp" alt="桂林1944背景" fetchpriority="high" />
+      <img class="banner-bg" src="/image/2.webp" alt="桂林1944背景" fetchpriority="high" />
       <div class="banner-content">
         <h1 class="banner-title">桂林1944·命运应答</h1>
         <h2 class="banner-subtitle">文创产品数字化展示</h2>
