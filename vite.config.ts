@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { fileURLToPath, URL } from 'node:url'
-
+import vue from '@vitejs/plugin-vue';
+import { fileURLToPath } from 'url';
 export default defineConfig({
   plugins: [vue()],
   resolve: {
@@ -11,7 +10,7 @@ export default defineConfig({
   },
   server: {
     port: 8080,
-    open: true
+    open: false
   },
   build: {
     outDir: 'dist',
@@ -20,17 +19,18 @@ export default defineConfig({
     minify: 'esbuild',
     cssCodeSplit: true,
     target: 'es2015',
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
         manualChunks: {
           vue: ['vue']
         },
+        assetFileNames: 'assets/[name]-[hash][extname]',
         chunkFileNames: 'assets/[name]-[hash].js',
-        entryFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
+        entryFileNames: 'assets/[name]-[hash].js'
       }
-    }
+    },
+    reportCompressedSize: true
   },
   esbuild: {
     target: 'es2015',
