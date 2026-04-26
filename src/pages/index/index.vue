@@ -1080,8 +1080,9 @@ const closeZoom = () => {
 .welcome-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 10px;
+  background: #f0ebe0;
 }
 
 /* 子分类网格 */
