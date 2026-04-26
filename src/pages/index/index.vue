@@ -4,15 +4,31 @@
     <div class="banner">
       <img class="banner-bg" src="/image/1.webp" alt="桂林1944背景" fetchpriority="high" />
       <div class="banner-content">
-        <div class="banner-text-wrapper">
-          <p class="banner-poem">文化如炬，薪火相传<br>在战火的洪漠中，<br>文化是民族最不屈的脊梁。<br>在岁月的回响里，<br>信念是永恒的航标。<br>无论旅程如何遥远，<br>不论黑暗如何延宕，<br>以笔为炬，以文为光，<br>照亮前行之路。<br>让文化之光，永远照亮前行之路。</p>
-          <h1 class="banner-title">桂林1944·命运应答</h1>
-          <h2 class="banner-subtitle">文创产品数字化展示</h2>
-          <p class="banner-intro">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列文化文创产品设计</p>
-          <div class="banner-stamp">桂林1944</div>
+        <h1 class="banner-title">桂林1944·命运应答</h1>
+        <h2 class="banner-subtitle">文创产品数字化展示</h2>
+        <p class="banner-intro">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列文化产品设计</p>
+        <div class="banner-concept">
+          <p class="banner-concept-text">文化如山河，薪火相传</p>
+          <p class="banner-concept-text">在战火的淬炼中，文化是民族最硬的脊梁。</p>
+          <p class="banner-concept-text">在岁月的回响里，信念是永恒的航标。</p>
+          <p class="banner-concept-text">无论是烽火如何远，不论征程有多艰险，</p>
+          <p class="banner-concept-text">以笔为炬，以文为帆，</p>
+          <p class="banner-concept-text">让文化之光，永远照亮前行之路。</p>
         </div>
+        <div class="banner-divider">
+          <div class="divider-star">★</div>
+        </div>
+        <p class="banner-motto">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列文化产品设计</p>
+        <div class="banner-stamp">桂林1944</div>
       </div>
+      <!-- 装饰元素 -->
+      <div class="banner-decoration top-left"></div>
+      <div class="banner-decoration top-right"></div>
+      <div class="banner-decoration bottom-left"></div>
+      <div class="banner-decoration bottom-right"></div>
     </div>
+
+
 
     <!-- 产品分类展示区域 -->
     <div class="product-category">
@@ -663,6 +679,7 @@ const closeZoom = () => {
   width: 100%;
   height: 100%;
   z-index: 1;
+  filter: brightness(0.7);
   object-fit: cover;
 }
 
@@ -672,27 +689,6 @@ const closeZoom = () => {
   text-align: center;
   color: #fff;
   padding: 0 20px;
-  width: 100%;
-}
-
-.banner-text-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 15px;
-  backdrop-filter: blur(5px);
-  border: 2px solid rgba(212, 175, 55, 0.5);
-  position: relative;
-}
-
-.banner-poem {
-  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 1.1rem;
-  color: #F5F0E6;
-  line-height: 1.8;
-  margin-bottom: 30px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .banner-title {
@@ -722,19 +718,248 @@ const closeZoom = () => {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
+/* 项目理念内容 */
+.banner-concept {
+  max-width: 600px;
+  margin: 0 auto 30px;
+  text-align: center;
+}
+
+.banner-concept-text {
+  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
+  font-size: 0.9rem;
+  color: #D4AF37;
+  line-height: 1.6;
+  margin: 8px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+}
+
+/* 分隔线 */
+.banner-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 400px;
+}
+
+.banner-divider::before,
+.banner-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  margin: 0 20px;
+}
+
+.divider-star {
+  font-size: 1.2rem;
+  color: #D4AF37;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* 主标语 */
+.banner-motto {
+  font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+  font-size: 0.95rem;
+  color: #F5F0E6;
+  line-height: 1.4;
+  max-width: 700px;
+  margin: 20px auto 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  font-style: italic;
+}
+
+/* 印章 */
 .banner-stamp {
   display: inline-block;
-  padding: 15px 25px;
-  background: #8B4513;
-  color: #F5F0E6;
   font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  color: #D4AF37;
   font-weight: bold;
+  padding: 8px 16px;
   border: 2px solid #D4AF37;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  margin-top: 20px;
+  border-radius: 4px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  margin-top: 10px;
+  letter-spacing: 2px;
 }
+
+/* Banner装饰元素 */
+.banner-decoration {
+  position: absolute;
+  z-index: 2;
+  width: 100px;
+  height: 100px;
+  border: 3px solid rgba(212, 175, 55, 0.5);
+}
+
+.banner-decoration.top-left {
+  top: 30px;
+  left: 30px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.banner-decoration.top-right {
+  top: 30px;
+  right: 30px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.banner-decoration.bottom-left {
+  bottom: 30px;
+  left: 30px;
+  border-right: none;
+  border-top: none;
+}
+
+.banner-decoration.bottom-right {
+  bottom: 30px;
+  right: 30px;
+  border-left: none;
+  border-top: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .banner {
+    height: auto;
+    min-height: 100vh;
+    padding: 60px 20px;
+  }
+  
+  .banner-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .banner-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+  
+  .banner-intro {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  
+  .banner-concept {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .banner-concept-text {
+    font-size: 0.8rem;
+    margin: 6px 0;
+  }
+  
+  .banner-divider {
+    max-width: 300px;
+    margin: 15px auto;
+  }
+  
+  .banner-divider::before,
+  .banner-divider::after {
+    margin: 0 15px;
+  }
+  
+  .banner-motto {
+    font-size: 0.85rem;
+    margin: 15px auto 20px;
+  }
+  
+  .banner-stamp {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+  
+  .banner-decoration {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .banner-decoration.top-left,
+  .banner-decoration.top-right {
+    top: 20px;
+  }
+  
+  .banner-decoration.bottom-left,
+  .banner-decoration.bottom-right {
+    bottom: 20px;
+  }
+  
+  .banner-decoration.top-left,
+  .banner-decoration.bottom-left {
+    left: 20px;
+  }
+  
+  .banner-decoration.top-right,
+  .banner-decoration.bottom-right {
+    right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    padding: 40px 15px;
+  }
+  
+  .banner-title {
+    font-size: 2rem;
+  }
+  
+  .banner-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .banner-intro {
+    font-size: 0.8rem;
+  }
+  
+  .banner-concept-text {
+    font-size: 0.75rem;
+  }
+  
+  .banner-motto {
+    font-size: 0.8rem;
+  }
+  
+  .banner-stamp {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+  
+  .banner-decoration {
+    width: 40px;
+    height: 40px;
+    border-width: 2px;
+  }
+  
+  .banner-decoration.top-left,
+  .banner-decoration.top-right {
+    top: 15px;
+  }
+  
+  .banner-decoration.bottom-left,
+  .banner-decoration.bottom-right {
+    bottom: 15px;
+  }
+  
+  .banner-decoration.top-left,
+  .banner-decoration.bottom-left {
+    left: 15px;
+  }
+  
+  .banner-decoration.top-right,
+  .banner-decoration.bottom-right {
+    right: 15px;
+  }
+}
+
+
 
 /* 产品分类展示区域 */
 .product-category {
@@ -1371,124 +1596,6 @@ const closeZoom = () => {
 
   .ending-title {
     font-size: 1.3rem;
-  }
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  /* 封面图区域响应式 */
-  .banner-title {
-    font-size: 2.5rem;
-  }
-  
-  .banner-subtitle {
-    font-size: 1.4rem;
-  }
-  
-  .banner-poem {
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-  
-  .banner-intro {
-    font-size: 0.9rem;
-    padding: 0 15px;
-  }
-  
-  .banner-text-wrapper {
-    margin: 0 15px;
-    padding: 30px;
-  }
-  
-  .banner-stamp {
-    font-size: 1rem;
-    padding: 12px 20px;
-  }
-  
-  /* 侧边栏响应式 */
-  .sidebar {
-    width: 160px;
-  }
-  
-  .sidebar-image {
-    max-width: 120px;
-    height: 80px;
-  }
-  
-  .sidebar-name {
-    font-size: 0.9rem;
-  }
-  
-  /* 主内容区域响应式 */
-  .main-content {
-    padding: 20px;
-  }
-  
-  .sub-category-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-  
-  .sub-category-item {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  /* 封面图区域响应式 */
-  .banner-title {
-    font-size: 2rem;
-  }
-  
-  .banner-subtitle {
-    font-size: 1.2rem;
-  }
-  
-  .banner-poem {
-    font-size: 0.8rem;
-    line-height: 1.5;
-  }
-  
-  .banner-intro {
-    font-size: 0.8rem;
-  }
-  
-  .banner-text-wrapper {
-    padding: 20px;
-  }
-  
-  .banner-stamp {
-    font-size: 0.9rem;
-    padding: 10px 15px;
-  }
-  
-  /* 侧边栏响应式 */
-  .sidebar {
-    width: 120px;
-  }
-  
-  .sidebar-image {
-    max-width: 90px;
-    height: 60px;
-  }
-  
-  .sidebar-name {
-    font-size: 0.8rem;
-  }
-  
-  /* 主内容区域响应式 */
-  .sub-category-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  /* 产品详情响应式 */
-  .detail-content {
-    padding: 20px;
-    max-height: 90vh;
-  }
-  
-  .detail-image {
-    max-width: 100%;
   }
 }
 </style>
