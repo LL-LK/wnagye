@@ -1664,7 +1664,7 @@ const closeZoom = () => {
 
 /* 系列主题整合区域 */
 .themes {
-  padding: 80px 20px;
+  padding: 60px 20px;
   background: linear-gradient(180deg, #F5F0E6 0%, #fff 100%);
   position: relative;
 }
@@ -1700,7 +1700,7 @@ const closeZoom = () => {
 
 .theme-item {
   display: flex;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   position: relative;
 }
 
@@ -1726,7 +1726,7 @@ const closeZoom = () => {
 .theme-content {
   width: 45%;
   background: linear-gradient(135deg, #fff 0%, #F5F0E6 100%);
-  padding: 30px;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -1744,26 +1744,26 @@ const closeZoom = () => {
 
 .theme-name {
   font-family: '思源黑体', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: #8B4513;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .theme-desc {
   font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #000080;
-  line-height: 1.6;
-  margin-bottom: 15px;
+  line-height: 1.5;
+  margin-bottom: 10px;
 }
 
 .theme-geography {
   font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #8B4513;
-  line-height: 1.6;
-  margin-bottom: 20px;
+  line-height: 1.5;
+  margin-bottom: 15px;
 }
 
 .theme-color {
@@ -1777,7 +1777,7 @@ const closeZoom = () => {
 
 /* 结尾展示区域 */
 .ending {
-  padding: 100px 20px;
+  padding: 60px 20px;
   background: linear-gradient(180deg, #fff 0%, #F5F0E6 50%, #fff 100%);
   text-align: center;
   position: relative;
@@ -1785,10 +1785,10 @@ const closeZoom = () => {
 
 .ending-title {
   font-family: '楷体', 'STKaiti', 'KaiTi', serif;
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #8B0000;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   line-height: 1.5;
   text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.2);
 }
