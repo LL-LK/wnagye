@@ -772,6 +772,8 @@ const closeZoom = () => {
   z-index: 1;
   filter: brightness(0.7);
   object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
 }
 
 .banner-content {
