@@ -1,38 +1,58 @@
 /*
-  Cache-Control: public, max-age=300, must-revalidate
+  Cache-Control: public, max-age=3600, s-maxage=86400, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
 
 /**/*.css
-  Cache-Control: public, max-age=604800, immutable
+  Cache-Control: public, max-age=31536000, immutable
 
 /**/*.js
-  Cache-Control: public, max-age=604800, immutable
+  Cache-Control: public, max-age=31536000, immutable
 
 /**/*.png
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/png
 
 /**/*.jpg
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/jpeg
 
 /**/*.jpeg
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/jpeg
 
 /**/*.gif
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/gif
 
 /**/*.svg
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/svg+xml
 
 /**/*.ico
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/x-icon
 
 /**/*.webp
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/webp
 
 /**/*.woff
-  Cache-Control: public, max-age=2592000, immutable
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: font/woff
 
 /**/*.woff2
-  Cache-Control: public, max-age=2592000, immutable
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: font/woff2
 
 /**/*.ttf
-  Cache-Control: public, max-age=2592000, immutable
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: font/ttf
+
+/**/*.json
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/index.html
+  Cache-Control: public, max-age=3600, must-revalidate
+  X-robots-tag: noindex
