@@ -7,26 +7,18 @@
         <h1 class="banner-title">桂林1944·命运应答</h1>
         <h2 class="banner-subtitle">文创产品数字化展示</h2>
         <p class="banner-intro">以桂林抗战文化记忆为灵感，提炼精神意象，形成系列化文创产品设计</p>
+        <div class="banner-concept">
+          <p class="banner-concept-text">
+            我们将历史精神转化为可视化、可收藏、可传播的产品,通过文创设计让桂林1944年的抗战记忆得以传承。
+            以民国旧报刊元素、桂林山水意境和抗战文化记忆为设计灵感，创造出兼具历史感与现代审美价值的系列文创产品。
+          </p>
+        </div>
       </div>
       <!-- 装饰元素 -->
       <div class="banner-decoration top-left"></div>
       <div class="banner-decoration top-right"></div>
       <div class="banner-decoration bottom-left"></div>
       <div class="banner-decoration bottom-right"></div>
-    </div>
-
-    <!-- 项目理念区域 -->
-    <div class="concept">
-      <div class="concept-content">
-        <h2 class="concept-title">项目理念</h2>
-        <p class="concept-text">
-          我们将历史精神转化为可视化、可收藏、可传播的产品,通过文创设计让桂林1944年的抗战记忆得以传承。
-          以民国旧报刊元素、桂林山水意境和抗战文化记忆为设计灵感，创造出兼具历史感与现代审美价值的系列文创产品。
-        </p>
-      </div>
-      <!-- 装饰元素 -->
-      <div class="concept-decoration left"></div>
-      <div class="concept-decoration right"></div>
     </div>
 
     <!-- 产品分类展示区域 -->
@@ -713,8 +705,28 @@ const closeZoom = () => {
   color: #F5F0E6;
   line-height: 1.5;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* 封面项目理念区域 */
+.banner-concept {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.banner-concept-text {
+  font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+  font-size: 0.95rem;
+  color: #F5F0E6;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  margin: 0;
 }
 
 /* Banner装饰元素 */
@@ -752,70 +764,6 @@ const closeZoom = () => {
   right: 30px;
   border-left: none;
   border-top: none;
-}
-
-/* 项目理念区域 */
-.concept {
-  padding: 80px 20px;
-  background-color: #F5F0E6;
-  position: relative;
-}
-
-.concept::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, rgba(139, 69, 19, 0.02) 100%);
-  z-index: 1;
-}
-
-.concept-content {
-  position: relative;
-  z-index: 2;
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.concept-title {
-  font-family: '思源宋体', 'Noto Serif SC', 'SimSun', serif;
-  font-size: 2.5rem;
-  color: #8B4513;
-  margin-bottom: 30px;
-}
-
-.concept-text {
-  font-family: '微软雅黑', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
-  font-size: 1.1rem;
-  color: #000080;
-  line-height: 1.8;
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-/* 理念区域装饰 */
-.concept-decoration {
-  position: absolute;
-  width: 200px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
-  z-index: 2;
-}
-
-.concept-decoration.left {
-  top: 50%;
-  left: 5%;
-  transform: translateY(-50%);
-}
-
-.concept-decoration.right {
-  top: 50%;
-  right: 5%;
-  transform: translateY(-50%);
 }
 
 /* 产品分类展示区域 */
@@ -1453,6 +1401,113 @@ const closeZoom = () => {
 
   .ending-title {
     font-size: 1.3rem;
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  /* 封面图区域响应式 */
+  .banner-title {
+    font-size: 2.5rem;
+  }
+  
+  .banner-subtitle {
+    font-size: 1.4rem;
+  }
+  
+  .banner-intro {
+    font-size: 0.9rem;
+    padding: 0 15px;
+  }
+  
+  .banner-concept {
+    margin: 0 15px;
+    padding: 15px;
+  }
+  
+  .banner-concept-text {
+    font-size: 0.85rem;
+  }
+  
+  /* 侧边栏响应式 */
+  .sidebar {
+    width: 160px;
+  }
+  
+  .sidebar-image {
+    max-width: 120px;
+    height: 80px;
+  }
+  
+  .sidebar-name {
+    font-size: 0.9rem;
+  }
+  
+  /* 主内容区域响应式 */
+  .main-content {
+    padding: 20px;
+  }
+  
+  .sub-category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .sub-category-item {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  /* 封面图区域响应式 */
+  .banner-title {
+    font-size: 2rem;
+  }
+  
+  .banner-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .banner-intro {
+    font-size: 0.8rem;
+  }
+  
+  .banner-concept {
+    padding: 12px;
+  }
+  
+  .banner-concept-text {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  
+  /* 侧边栏响应式 */
+  .sidebar {
+    width: 120px;
+  }
+  
+  .sidebar-image {
+    max-width: 90px;
+    height: 60px;
+  }
+  
+  .sidebar-name {
+    font-size: 0.8rem;
+  }
+  
+  /* 主内容区域响应式 */
+  .sub-category-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* 产品详情响应式 */
+  .detail-content {
+    padding: 20px;
+    max-height: 90vh;
+  }
+  
+  .detail-image {
+    max-width: 100%;
   }
 }
 </style>
